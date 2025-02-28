@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app import dependencies
-
+from app import models, schemas
+from .db import engine, Session, get_db
+from app import db
+from typing import Annotated
 
 app = FastAPI()
 
@@ -15,15 +17,23 @@ app.add_middleware(
     allow_headers=["*"],  # Zezwól na wszystkie nagłówki
 )
 
+models.Base.metadata.create_all(bind=engine)
+
 @app.get("/")
 def read_root():
     return {"message": "Hello from FastAPI!"}
 
-@app.get("/test-db")
-def tes_db(db: Session = Depends(dependencies.get_db)):
-    try:
-        result = db.execute("SELECT tablename FROM pg_tables WHERE schemaname = 'public';")
-        tables = result.fetchall()
-        return {"tables": [table[0] for table in tables]}
-    except Exception as e:
-        return {"error": str(e)} 
+@app.post("/user")
+async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_users = models.Users(username = user.username, email = user.email, password = user.password)
+    db.add(db_users)
+    db.commit()
+    db.refresh(db_users)
+    return db_users
+
+@app.get("/user/{user_id}", response_model=schemas.UserOut)
+async def get_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
