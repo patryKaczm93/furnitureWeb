@@ -11,10 +11,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Zezwól na dostęp z dowolnych źródeł (w produkcji możesz tu podać konkretne adresy)
+    allow_origins=["*"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Zezwól na wszystkie metody (GET, POST, itd.)
-    allow_headers=["*"],  # Zezwól na wszystkie nagłówki
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
 
 models.Base.metadata.create_all(bind=engine)
@@ -37,3 +37,12 @@ async def get_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
+@app.delete("/user/{user_id}")
+async def delete_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(db_user)
+    db.commit()
+    return {"message": "User deleted successfully"}
