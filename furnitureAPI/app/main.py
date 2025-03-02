@@ -1,13 +1,20 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app import models, schemas
-from .db import engine, Session, get_db
-from app import db
-from typing import Annotated
+from app import models
+from app.db import engine
+from app.routers import user_router
 
-app = FastAPI()
 
-#test
+
+models.Base.metadata.create_all(bind=engine)
+
+# Tworzymy instancję FastAPI
+app = FastAPI(
+    title="API z autoryzacją OAuth2",
+    description="API do testów autoryzacji",
+    version="1.0.0",
+    openapi_tags=[{"name": "authentication", "description": "Operacje związane z logowaniem i tokenami"}],
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,32 +24,9 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-models.Base.metadata.create_all(bind=engine)
+# Rejestrujemy router z endpointami dla użytkowników
+app.include_router(user_router, prefix="/users", tags=["users"])
 
 @app.get("/")
 def read_root():
     return {"message": "Hello from FastAPI!"}
-
-@app.post("/user")
-async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_users = models.Users(username = user.username, email = user.email, password = user.password)
-    db.add(db_users)
-    db.commit()
-    db.refresh(db_users)
-    return db_users
-
-@app.get("/user/{user_id}", response_model=schemas.UserOut)
-async def get_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
-
-@app.delete("/user/{user_id}")
-async def delete_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    db.delete(db_user)
-    db.commit()
-    return {"message": "User deleted successfully"}
