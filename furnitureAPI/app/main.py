@@ -16,6 +16,8 @@ app = FastAPI(
     openapi_tags=[{"name": "authentication", "description": "Operacje związane z logowaniem i tokenami"}],
 )
 
+origins = ['http://localhost:5173']
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
@@ -25,7 +27,7 @@ app.add_middleware(
 )
 
 # Rejestrujemy router z endpointami dla użytkowników
-app.include_router(user_router, prefix="/users", tags=["users"])
+app.include_router(user_router, tags=["users"])
 
 @app.get("/")
 def read_root():

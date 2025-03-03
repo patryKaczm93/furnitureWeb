@@ -8,7 +8,6 @@ from app import models
 
 # Ustawienia dla JWT
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/token")
 
 def hash_password(password: str) -> str:
     """ Hashuje hasło za pomocą bcrypt """
@@ -32,10 +31,3 @@ def verify_token(token: str):
         return payload
     except JWTError:
         return None
-    
-def get_current_user(token: str = Depends(oauth2_scheme)):
-    """ Weryfikuje użytkownika na podstawie tokenu JWT """
-    payload = verify_token(token)
-    if not payload:
-        raise HTTPException(status_code=401, detail="Nieautoryzowany")
-    return payload  # Możesz zwrócić np. e-mail użytkownika lub ID
