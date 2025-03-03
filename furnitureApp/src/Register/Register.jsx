@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.scss"
+import "./Register.scss";
 
-function Login() {
+function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -25,23 +25,22 @@ function Login() {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:8000/token", {
+            const response = await fetch("http://localhost:8000/user", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ username, password }), 
+
             });
 
             setLoading(false);
 
             if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem("token", data.access_token);
-                navigate("/protected");
+                setError("Zarejestrowano!")
             } else {
                 const errorData = await response.json();
-                setError(errorData.detail || "Authentication failed");
+                setError(errorData.detail || "Registration failed");
             }
         } catch (error) {
             setLoading(false);
@@ -49,16 +48,17 @@ function Login() {
         }
     };
 
+
     return (
-        <div className="login-container">
-            <h2>Login</h2>
+        <div className="register-container">
+            <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username:</label>
                     <input
                         type="text"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(event) => setUsername(event.target.value)}
                     />
                 </div>
                 <div>
@@ -66,18 +66,18 @@ function Login() {
                     <input
                         type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <div className="error">{error}</div>}
                 <button type="submit" disabled={loading}>
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? "Loading..." : "Register"}
                 </button>
-                <button onClick={() => navigate("/register")}>Register Page
+                <button onClick={() => navigate("/")}>Login Page
                 </button>
             </form>
         </div>
     );
 }
 
-export default Login;
+export default Register;

@@ -12,18 +12,24 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 # Endpoint do rejestracji użytkownika
 @user_router.post("/user")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_users = models.Users(username=user.username, email=user.email, password=hash_password(user.password))
-    db.add(db_users)
+    existing_user = db.query(models.Users).filter(models.Users.username == user.username).first()
+    
+    if existing_user:
+        raise HTTPException(status_code=409, detail="Użytownik o takim Username już istnieje") 
+
+    new_user = models.Users(username=user.username, password=hash_password(user.password))
+    db.add(new_user)
     db.commit()
-    db.refresh(db_users)
-    return db_users
+    db.refresh(new_user)
+
+    return new_user
 
 @user_router.post("/token")
 def login_for_access_token(user: schemas.UserCreate, db=Depends(get_db)):
     """ Endpoint logowania """
     user_db = db.query(models.Users).filter(models.Users.username == user.username).first()
     if user_db is None:
-        raise HTTPException(status_code=401, detail="Nie ma uzytkownika")
+        raise HTTPException(status_code=401, detail="Nie ma takiego użytkownika")
     if not verify_password(user.password, user_db.password):
         raise HTTPException(status_code=401, detail="Nieprawidłowe dane logowania")
     
@@ -46,6 +52,7 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     db.delete(db_user)
     db.commit()
+
     return {"message": "User deleted successfully"}
 
 @user_router.get("/verified-token")
