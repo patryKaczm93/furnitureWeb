@@ -4,7 +4,9 @@ from app.services import verify_password, create_access_token, hash_password, ve
 from app.db import get_db, Session
 from app import models, schemas
 from datetime import timedelta
-from app.config import ACCESS_TOKEN_EXPIRE_MINUTES
+from app.config import settings
+
+print(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
 
 user_router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
@@ -33,7 +35,7 @@ def login_for_access_token(user: schemas.UserCreate, db=Depends(get_db)):
     if not verify_password(user.password, user_db.password):
         raise HTTPException(status_code=401, detail="Nieprawidłowe dane logowania")
     
-    access_token = create_access_token({"sub": user_db.username}, timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    access_token = create_access_token({"sub": user_db.username}, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES))
     return {"access_token": access_token, "token_type": "bearer"}
 
 # Endpoint do pobierania użytkownika

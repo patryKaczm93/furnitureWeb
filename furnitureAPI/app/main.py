@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.models import Base
-from app.db import engine
+from app.db import engine, Sessionlocal
 from app.routers import user_router
-from initial_data import create_admin
+from app.initial_data import create_admin_user
 
 
 
@@ -33,7 +33,11 @@ app.include_router(user_router, tags=["users"])
 
 @app.on_event("startup")
 def startup_event():
-    create_admin()
+    db = Sessionlocal()
+    try:
+        create_admin_user(db)
+    finally:
+        db.close()
 
 @app.get("/")
 def read_root():
