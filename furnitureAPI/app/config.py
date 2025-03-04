@@ -1,3 +1,22 @@
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30 
+from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Settings(BaseSettings):
+    ADMIN_EMAIL: str
+    ADMIN_USERNAME: str
+    ADMIN_PASSWORD: str
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    DATABASE_URL: str
+
+    class Config:
+        env_file = "../.env"
+        
+
+
+settings = Settings()
+
+print("Loaded settings:", settings.model_dump())

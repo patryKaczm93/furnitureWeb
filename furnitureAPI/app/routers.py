@@ -10,7 +10,7 @@ user_router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 # Endpoint do rejestracji użytkownika
-@user_router.post("/user")
+@user_router.post("/registration")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(models.Users).filter(models.Users.username == user.username).first()
     

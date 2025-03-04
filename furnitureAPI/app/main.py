@@ -1,12 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app import models
+from app.models import Base
 from app.db import engine
 from app.routers import user_router
+from initial_data import create_admin
 
 
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 # Tworzymy instancję FastAPI
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
     version="1.0.0",
     openapi_tags=[{"name": "authentication", "description": "Operacje związane z logowaniem i tokenami"}],
 )
+
 
 origins = ['http://localhost:5173']
 
@@ -28,6 +30,10 @@ app.add_middleware(
 
 # Rejestrujemy router z endpointami dla użytkowników
 app.include_router(user_router, tags=["users"])
+
+@app.on_event("startup")
+def startup_event():
+    create_admin()
 
 @app.get("/")
 def read_root():
