@@ -1,10 +1,17 @@
-from pydantic import BaseModel
-from typing import List, Annotated
+from pydantic import BaseModel, EmailStr
+from typing import List, Annotated, Optional
 
 #Dodawanie użytkownika (dane wejściowe)
 class UserCreate(BaseModel):
     username: str
     password: str
+    verify_password: str
+    email: EmailStr
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 #Odczytywanie danych o użytkowniku
 class UserOut(BaseModel):

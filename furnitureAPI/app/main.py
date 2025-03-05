@@ -1,11 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.models import Base
-from app.db import engine, Sessionlocal
-from app.routers import user_router
-from app.initial_data import create_admin_user
-
-
+from .models import Base
+from .database import engine, Sessionlocal
+from .routes import auth, users, create_admin
 
 Base.metadata.create_all(bind=engine)
 
@@ -29,13 +26,14 @@ app.add_middleware(
 )
 
 # Rejestrujemy router z endpointami dla użytkowników
-app.include_router(user_router, tags=["users"])
+app.include_router(users.router)
+app.include_router(auth.router) 
 
 @app.on_event("startup")
 def startup_event():
     db = Sessionlocal()
     try:
-        create_admin_user(db)
+        create_admin.create_admin_user(db)
     finally:
         db.close()
 

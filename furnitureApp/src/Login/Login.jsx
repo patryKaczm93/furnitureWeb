@@ -5,14 +5,21 @@ import "./Login.scss"
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const validateForm = () => {
-        if (!username || !password) {
+        if (!username || !password || !email) {
             setError("Username and password are required");
+            return false;
+        } else if (password !== confirmPassword) {
+            setError("Passwords do not match");
             return false;
         }
         setError("");
@@ -30,7 +37,7 @@ function Login() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, password }), 
+                body: JSON.stringify({ username, password, email, firstName, lastName}), 
             });
 
             setLoading(false);
@@ -69,11 +76,43 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                <div>
+                    <label>Confirm password:</label>
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>First Name</label>
+                    <input
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Last Name</label>
+                    <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                </div>
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <button type="submit" disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
                 </button>
-                <button onClick={() => navigate("/register")}>Register Page
+                <button type="button" onClick={() => navigate("/register")}>Register Page
                 </button>
             </form>
         </div>
