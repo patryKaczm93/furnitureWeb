@@ -1,5 +1,6 @@
 import enum
-from sqlalchemy import Boolean, Column, Integer, String, Enum
+from sqlalchemy import Boolean, Column, Integer, String, Enum, DateTime
+from sqlalchemy.sql import func
 from .database import Base
 
 class UsersRole(enum.Enum):
@@ -16,3 +17,10 @@ class Users(Base):
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
     role = Column(Enum(UsersRole), default=UsersRole.USER, nullable=False)
+
+    is_verified = Column(Boolean, default=False, nullable=False)  
+    email_verification_token = Column(String, nullable=True)  # Token do potwierdzenia e-maila
+    reset_token = Column(String, nullable=True)  # Token do resetu hasła
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())

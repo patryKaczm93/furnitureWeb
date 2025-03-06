@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.services import verify_password, create_access_token, verify_token, get_hash_password
+from app.services import get_hash_password, get_current_user
 from app.database import get_db, Session
-from app.services import get_current_user
 from app import models, schemas
 from datetime import timedelta
 from app.config import settings
@@ -16,12 +15,16 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
     if existing_user:
         raise_conflict_exception("Użytkownik o podanej nazwie już istnieje")
 
-    new_user = models.Users(username=user.username, 
-                            password=get_hash_password(user.password),
-                            email=user.email,
-                            firstname=user.firstname,
-                            lastname=user.lastname,
-                            role=models.UsersRole.USER)
+    new_user = models.Users(
+        username=user.username,
+        password=get_hash_password(user.password),  # Hashowanie hasła
+        email=user.email,
+        firstname=user.firstname,
+        lastname=user.lastname,
+        role=models.UsersRole.USER,
+        is_verified=False,  # Nowy użytkownik nie jest jeszcze zweryfikowany
+        email_verification_token=None 
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -47,7 +50,3 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
 
     return {"message": "User deleted successfully"}
 
-@router.get("/verified-token")
-async def veryfied_user_token(token: str = Depends(get_db)):
-    verify_token(token)
-    return {'message': "Token is valid"}

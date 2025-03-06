@@ -5,7 +5,6 @@ from typing import List, Annotated, Optional
 class UserCreate(BaseModel):
     username: str
     password: str
-    verify_password: str
     email: EmailStr
     firstname: Optional[str] = None
     lastname: Optional[str] = None
@@ -18,4 +17,8 @@ class UserOut(BaseModel):
     id: int
     username: str
     email: str
+
+class Token(BaseModel):
+    username: str
+    password: str
 
