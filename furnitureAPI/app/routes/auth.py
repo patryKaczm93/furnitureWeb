@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app import models, schemas
 from app.database import get_db
-from app.services import verify_password, create_access_token
+from app.services import verify_password, create_access_token, verify_token, oauth2_scheme
 from app.config import settings
 from datetime import timedelta
 
@@ -40,3 +40,23 @@ async def verify_account(token: str = Query(...), db: Session = Depends(get_db))
     db.commit()
 
     return {"msg": "Konto zostało aktywowane pomyślnie."}
+
+@router.get("/verified-token")
+async def verified_user_token(token: str = Depends(oauth2_scheme), db=Depends(get_db)):
+    if not token:
+        raise HTTPException(status_code=400, detail="Token missing")
+    
+    try:
+        payload = verify_token(token)
+        username: str = payload.get("sub")
+        if not username:
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+        
+        user = db.query(models.Users).filter(models.Users.username == username).first()
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+
+    except Exception as e:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    return {'message': "Token is valid"}
