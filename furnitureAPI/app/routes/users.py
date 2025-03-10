@@ -58,8 +58,3 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": "User deleted successfully"}
-
-@router.get("/verified-token")
-async def veryfied_user_token(token: str = Depends(get_db)):
-    verify_token(token)
-    return {'message': "Token is valid"}
