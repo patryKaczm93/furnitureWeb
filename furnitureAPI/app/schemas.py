@@ -19,3 +19,6 @@ class UserOut(BaseModel):
     username: str
     email: str
 
+class Token(BaseModel):
+    username: str
+    password: str
