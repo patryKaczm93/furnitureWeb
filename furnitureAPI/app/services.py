@@ -4,6 +4,8 @@ from fastapi.security import OAuth2PasswordBearer
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from email.message import EmailMessage
+import smtplib
 
 from app import models
 from .database import get_db
@@ -44,3 +46,21 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     if user is None:
         raise credentials_exception
     return user
+
+def send_verification_mail(email: str, token:str):
+    verification_link = f"{settings.FRONTEND_URL}/verify?token={token}"
+
+    msg = EmailMessage()
+    msg['Subject'] = 'Aktywacja konta'
+    msg['From'] = settings.SMTP_USER
+    msg['To'] = email
+    msg.set_content(f'Kliknij w link, aby aktywować konto: {verification_link}')
+
+    try:
+        with smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
+            server.starttls()
+            server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
+            server.send_message(msg)
+        print("Email wysłany pomyślnie!")
+    except Exception as e:
+        print(f"Error sending email: {e}")

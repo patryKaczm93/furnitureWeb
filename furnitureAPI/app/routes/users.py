@@ -1,5 +1,7 @@
+import secrets
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException
-from app.services import verify_password, create_access_token, verify_token, get_hash_password
+from app.services import verify_token, get_hash_password, send_verification_mail
 from app.database import get_db, Session
 from app.services import get_current_user
 from app import models, schemas
@@ -16,15 +18,25 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
     if existing_user:
         raise_conflict_exception("Użytkownik o podanej nazwie już istnieje")
 
+    verification_token = secrets.token_urlsafe(32)
+    token_expires = datetime.now(timezone.utc) + timedelta(hours=24)
+
     new_user = models.Users(username=user.username, 
                             password=get_hash_password(user.password),
                             email=user.email,
-                            firstname=user.firstname,
-                            lastname=user.lastname,
-                            role=models.UsersRole.USER)
+                            firstname=user.firstname or "",
+                            lastname=user.lastname or "",
+                            role=models.UsersRole.USER,
+                            verification_token=verification_token,
+                            verification_token_expires=token_expires)
+
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    print(f"Wysyłanie e-maila na adres {new_user.email} z tokenem {new_user.verification_token}")
+
+    send_verification_mail(new_user.email, verification_token)
 
     return new_user
 

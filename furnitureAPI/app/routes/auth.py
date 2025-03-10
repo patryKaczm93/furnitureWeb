@@ -1,5 +1,6 @@
-import jwt
-from fastapi import APIRouter, Depends, HTTPException
+from datetime import datetime, timezone
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy.orm import Session
 
 from app import models, schemas
 from app.database import get_db
@@ -20,3 +21,22 @@ def login_for_access_token(user: schemas.UserCreate, db=Depends(get_db)):
     
     access_token = create_access_token({"sub": user_db.username}, timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES))
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.get("/verify", tags=["auth"])
+async def verify_account(token: str = Query(...), db: Session = Depends(get_db)):
+    user = db.query(models.Users).filter(models.Users.verification_token == token).first()
+
+    if not user:
+        raise HTTPException(status_code=400, detail="Nieprawidłowy token weryfikacyjny.")
+    if user.is_verified:
+        return {"msg": "Konto już aktywowane."}
+    if user.verification_token_expires.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc):
+        raise HTTPException(status_code=400, detail="Token wygasł. Zarejestruj się ponownie.")
+
+    user.is_verified = True
+    user.verification_token = None
+    user.verification_token_expires = None
+    db.commit()
+
+    return {"msg": "Konto zostało aktywowane pomyślnie."}
