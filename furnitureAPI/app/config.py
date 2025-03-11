@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     SMTP_PORT: int
     SMTP_USER: str
     SMTP_PASSWORD: str
+    UPLOAD_FOLDER: str
+
     class Config:
         env_file = ".env" 
 
