@@ -40,6 +40,7 @@ async def verify_account(token: str = Query(...), db: Session = Depends(get_db))
 
     return {"msg": "Konto zostało aktywowane pomyślnie."}
 
+
 @router.get("/verified-token")
 async def verified_user_token(token: str = Depends(oauth2_scheme), db=Depends(get_db)):
     if not token:

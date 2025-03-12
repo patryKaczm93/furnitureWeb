@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from .models import Base
 from .database import engine, Sessionlocal
-from .routes import auth, users, image, create_admin
+from .routes import auth, users, image, password, create_admin
 
 Base.metadata.create_all(bind=engine)
 
@@ -31,6 +31,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(image.router)
+app.include_router(password.router)
 
 @app.on_event("startup")
 def startup_event():

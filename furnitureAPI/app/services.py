@@ -47,8 +47,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         raise credentials_exception
     return user
 
-def send_verification_mail(email: str, token:str):
-    verification_link = f"{settings.FRONTEND_URL}/verify?token={token}"
+def send_verification_mail(email: str, token:str, your_endpoint:str):
+    verification_link = f"{settings.FRONTEND_URL}/{your_endpoint}?token={token}"
 
     msg = EmailMessage()
     msg['Subject'] = 'Aktywacja konta'

@@ -36,7 +36,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
 
     print(f"Wysyłanie e-maila na adres {new_user.email} z tokenem {new_user.verification_token}")
 
-    send_verification_mail(new_user.email, verification_token)
+    send_verification_mail(new_user.email, verification_token, "verify")
 
     return new_user
 

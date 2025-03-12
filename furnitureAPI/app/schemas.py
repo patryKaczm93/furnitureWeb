@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 from typing import List, Annotated, Optional
 
 #Dodawanie użytkownika (dane wejściowe)
@@ -22,3 +22,13 @@ class UserOut(BaseModel):
 class Token(BaseModel):
     username: str
     password: str
+
+class ResetPassword(BaseModel):
+    password: str
+    verify_password: str
+
+    @validator("verify_password")
+    def passwords_match(cls, v, values):
+        if 'password' in values and v != values['password']:
+            raise ValueError("Hasła nie są takie same")
+        return v
