@@ -12,7 +12,8 @@ class UserCreate(BaseModel):
     lastname: Optional[str] = None
 
     class Config:
-        form_attributes = True
+        from_attributes=True
+        orm_mode = True
 class UserOut(BaseModel):
     id: int
     username: str
@@ -37,7 +38,8 @@ class ImageCreate(BaseModel):
     order_status: OrderStatusEnum = OrderStatusEnum.NEW
 
     class Config:
-        form_attributes = True
+        from_attributes=True
+        orm_mode = True
 
 class ImageOut(BaseModel):
     id: int
@@ -48,4 +50,5 @@ class ImageOut(BaseModel):
     created_at: datetime
 
     class Config:
-        form_attributes = True
+        from_attributes=True
+        orm_mode = True

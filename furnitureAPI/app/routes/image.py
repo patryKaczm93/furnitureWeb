@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile, Depends, HTTPException
+from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import UserProjectImages, Users, OrderStatusEnum
@@ -26,7 +26,7 @@ def save_file(file: UploadFile):
     return os.path.join(settings.UPLOAD_FOLDER, file_name)
 
 @router.post("/upload_image/")
-async def upload_image(user_id: int, image_data: ImageCreate, file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_image(user_id: int, description: str = Form(None), order_status: OrderStatusEnum = Form(OrderStatusEnum.NEW), file: UploadFile = File(...), db: Session = Depends(get_db)):
     user = db.query(Users).filter(Users.id == user_id).first()
 
     if not user:
@@ -37,8 +37,8 @@ async def upload_image(user_id: int, image_data: ImageCreate, file: UploadFile =
     new_image = UserProjectImages(
         user_id=user_id,
         image_path=file_path,
-        description=image_data.description, 
-        order_status=image_data.order_status
+        description=description,
+        order_status=order_status
     )
 
     db.add(new_image)
@@ -74,7 +74,7 @@ def delete_image(image_id: int, db: Session = Depends(get_db)):
     if not image:
         raise HTTPException(status_code=404, detail="Zdjęcie nie znalezione")
 
-    os.remove(image.image_path)
+    # os.remove(image.image_path)
     db.delete(image)
     db.commit()
 
