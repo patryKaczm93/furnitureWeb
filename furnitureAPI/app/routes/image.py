@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import UserProjectImages, Users, OrderStatusEnum
 from app.config import settings
+from app.schemas import ImageCreate, ImageOut 
 import os
 from uuid import uuid4
 
@@ -25,7 +26,7 @@ def save_file(file: UploadFile):
     return os.path.join(settings.UPLOAD_FOLDER, file_name)
 
 @router.post("/upload_image/")
-async def upload_image(user_id: int, desc: str, file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_image(user_id: int, image_data: ImageCreate, file: UploadFile = File(...), db: Session = Depends(get_db)):
     user = db.query(Users).filter(Users.id == user_id).first()
 
     if not user:
@@ -36,17 +37,22 @@ async def upload_image(user_id: int, desc: str, file: UploadFile = File(...), db
     new_image = UserProjectImages(
         user_id=user_id,
         image_path=file_path,
-        description=desc, 
-        order_status=OrderStatusEnum.NEW, 
+        description=image_data.description, 
+        order_status=image_data.order_status
     )
+
     db.add(new_image)
     db.commit()
     db.refresh(new_image)
 
-    return {"msg": "Zdjęcie zostało pomyślnie dodane", "image_path": file_path}
+    return {
+        "msg": "Image has been successfully uploaded",
+        "image": ImageOut.from_orm(new_image)
+        }
+    
 
 
-@router.get("/get_images/{user_id}")
+@router.get("/get_user_images/{user_id}")
 def get_images(user_id: int, db: Session = Depends(get_db)):
     user = db.query(Users).filter(Users.id == user_id).first()
 
@@ -55,6 +61,46 @@ def get_images(user_id: int, db: Session = Depends(get_db)):
 
     images = db.query(UserProjectImages).filter(UserProjectImages.user_id == user_id).all()
 
-    image_urls = [f"/{image.image_path}" for image in images] 
+    return {
+        "msg": "User's projects fetched successfully",
+        "user_id": user_id,
+        "projects": [ImageOut.from_orm(image) for image in images]
+    }
 
-    return {"images": image_urls}
+@router.delete("/delete_image/{image_id}")
+def delete_image(image_id: int, db: Session = Depends(get_db)):
+    image = db.query(UserProjectImages).filter(UserProjectImages.id == image_id).first()
+
+    if not image:
+        raise HTTPException(status_code=404, detail="Zdjęcie nie znalezione")
+
+    os.remove(image.image_path)
+    db.delete(image)
+    db.commit()
+
+    return {
+        "msg": "Photo deleted successfully",
+        "image_id": image_id 
+    }
+
+@router.put("/update_image/{image_id}")
+def update_image(image_id: int, image_data: ImageCreate = None, order_status: OrderStatusEnum = None, db: Session = Depends(get_db)):
+
+    image = db.query(UserProjectImages).filter(UserProjectImages.id == image_id).first()
+
+    if not image:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    if image_data.description is not None:
+        image.description = image_data.description
+    if image_data.order_status is not None:
+        image.order_status = image_data.order_status
+
+
+    db.commit()
+    db.refresh(image)
+
+    return {
+        "msg": "Image has been successfully updated",
+        "image": ImageOut.from_orm(image)
+    }
