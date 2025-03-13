@@ -8,6 +8,13 @@ class UsersRole(enum.Enum):
     USER = 'user'
     ADMIN = 'admin'
 
+class OrderStatusEnum(str, enum.Enum):
+    NEW = "new"
+    ACCEPTED = "accepted"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    REJECTED = "rejected"
+
 class Users(Base):
     __tablename__ = "users"
 
@@ -30,7 +37,8 @@ class UserProjectImages(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     image_path = Column(String, nullable=False)
-    description = Column(String, nullable=True) 
+    description = Column(String, nullable=True)
+    order_status = Column(Enum(OrderStatusEnum), default=OrderStatusEnum.NEW)
     created_at = Column(DateTime, default=datetime.now(timezone.utc)) 
 
     user = relationship("Users", backref="project_images")

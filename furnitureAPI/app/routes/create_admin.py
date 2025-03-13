@@ -15,7 +15,8 @@ def create_admin_user(db: Session):
             password=hashed_password,
             firstname="Admin",
             lastname="User",
-            role=UsersRole.ADMIN
+            role=UsersRole.ADMIN,
+            is_verified=True
         )
         db.add(admin_user)
         db.commit()

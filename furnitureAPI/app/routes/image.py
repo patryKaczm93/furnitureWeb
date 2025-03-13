@@ -1,7 +1,7 @@
 from fastapi import APIRouter, File, UploadFile, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import UserProjectImages, Users
+from app.models import UserProjectImages, Users, OrderStatusEnum
 from app.config import settings
 import os
 from uuid import uuid4
@@ -25,7 +25,7 @@ def save_file(file: UploadFile):
     return os.path.join(settings.UPLOAD_FOLDER, file_name)
 
 @router.post("/upload_image/")
-async def upload_image(user_id: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_image(user_id: int, desc: str, file: UploadFile = File(...), db: Session = Depends(get_db)):
     user = db.query(Users).filter(Users.id == user_id).first()
 
     if not user:
@@ -33,9 +33,15 @@ async def upload_image(user_id: int, file: UploadFile = File(...), db: Session =
 
     file_path = save_file(file)
 
-    new_image = UserProjectImages(user_id=user_id, image_path=file_path)
+    new_image = UserProjectImages(
+        user_id=user_id,
+        image_path=file_path,
+        description=desc, 
+        order_status=OrderStatusEnum.NEW, 
+    )
     db.add(new_image)
     db.commit()
+    db.refresh(new_image)
 
     return {"msg": "Zdjęcie zostało pomyślnie dodane", "image_path": file_path}
 
