@@ -38,7 +38,7 @@ async def verify_account(token: str = Query(...), db: Session = Depends(get_db))
     user.verification_token_expires = None
     db.commit()
 
-    return {"msg": "Konto zostało aktywowane pomyślnie."}
+    return {"msg": "Account successfully activated."}
 
 
 @router.get("/verified-token")

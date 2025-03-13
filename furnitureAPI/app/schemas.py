@@ -1,7 +1,8 @@
 from pydantic import BaseModel, EmailStr, validator
 from typing import List, Annotated, Optional
+from datetime import datetime
+from .models import OrderStatusEnum
 
-#Dodawanie użytkownika (dane wejściowe)
 class UserCreate(BaseModel):
     username: str
     password: str
@@ -11,9 +12,7 @@ class UserCreate(BaseModel):
     lastname: Optional[str] = None
 
     class Config:
-        orm_mode = True
-
-#Odczytywanie danych o użytkowniku
+        form_attributes = True
 class UserOut(BaseModel):
     id: int
     username: str
@@ -32,3 +31,21 @@ class ResetPassword(BaseModel):
         if 'password' in values and v != values['password']:
             raise ValueError("Hasła nie są takie same")
         return v
+
+class ImageCreate(BaseModel):
+    description: Optional[str] = None
+    order_status: OrderStatusEnum = OrderStatusEnum.NEW
+
+    class Config:
+        form_attributes = True
+
+class ImageOut(BaseModel):
+    id: int
+    user_id: int
+    description: Optional[str]
+    order_status: OrderStatusEnum
+    image_path: str
+    created_at: datetime
+
+    class Config:
+        form_attributes = True

@@ -38,7 +38,10 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
 
     send_verification_mail(new_user.email, verification_token, "verify")
 
-    return new_user
+    return {
+        "msg": "User has been successfully registered. Please check your email to verify your account.",
+        "username": new_user.username
+    }
 
 
 @router.get("/user/{user_id}", status_code=200)
@@ -46,15 +49,25 @@ async def get_user(user_id: int, db: Session = Depends(get_db), current_user: mo
     db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
     if db_user is None:
         raise_not_found_exception("Użytkownik nie istnieje")
-    return db_user
+
+    return {
+        "id": db_user.id,
+        "username": db_user.username,
+        "email": db_user.email,
+        "firstname": db_user.firstname,
+        "lastname": db_user.lastname,
+        "role": str(db_user.role)
+    }
 
 
 @router.delete("/user/{user_id}")
-async def delete_user(user_id: int, db: Session = Depends(get_db)):
+def delete_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     db.delete(db_user)
     db.commit()
 
-    return {"message": "User deleted successfully"}
+    return {
+        "msg": "User deleted successfully"
+        }

@@ -25,19 +25,27 @@ def forgot_password(email: str, db: Session = Depends(get_db)):
 
     send_verification_mail(user.email, reset_token, "reset_forgotten_password")
 
-    return {"msg": "Link do resetowania hasła został wysłany na podany adres email"}
+    return {"msg": "A password reset link has been sent to the provided email address."}
 
 @router.get("/reset_forgotten_password")
 async def validate_reset_token(token: str = Query(...), db: Session = Depends(get_db)):
+
     user_db = db.query(models.Users).filter(models.Users.reset_password_token == token).first()
+
     if not user_db or user_db.reset_password_expires.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc):
+
         raise HTTPException(status_code=400, detail="Nieprawidłowy lub wygasły token.")
-    return {"msg": "Token poprawny, możesz ustawić nowe hasło."}
+    
+    return {"msg": "Token is valid. You can now set a new password."}
+
 
 @router.post("/reset_forgotten_password")
 async def reset_password(data: schemas.ResetPassword, token: str = Query(...), db: Session = Depends(get_db)):
+
     user_db = db.query(models.Users).filter(models.Users.reset_password_token == token).first()
+
     if not user_db or user_db.reset_password_expires.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc):
+
         raise HTTPException(status_code=400, detail="Nieprawidłowy lub wygasły token.")
 
     user_db.password = get_hash_password(data.password)
@@ -45,4 +53,4 @@ async def reset_password(data: schemas.ResetPassword, token: str = Query(...), d
     user_db.reset_password_expires = None
     db.commit()
     
-    return {"msg": "Hasło zostało zmienione."}
+    return {"msg": "Password has been successfully changed."}
