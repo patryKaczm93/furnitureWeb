@@ -58,7 +58,7 @@ function Login() {
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
+            <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username:</label>
@@ -110,9 +110,9 @@ function Login() {
                 </div>
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <button type="submit" disabled={loading}>
-                    {loading ? "Logging in..." : "Login"}
+                    {loading ? "Logging in..." : "Register"}
                 </button>
-                <button type="button" onClick={() => navigate("/register")}>Register Page
+                <button type="button" onClick={() => navigate("/register")}>Login Page
                 </button>
             </form>
         </div>

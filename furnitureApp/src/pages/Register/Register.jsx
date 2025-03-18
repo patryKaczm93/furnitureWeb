@@ -51,7 +51,7 @@ function Register() {
 
     return (
         <div className="register-container">
-            <h2>Register</h2>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username:</label>
@@ -71,9 +71,9 @@ function Register() {
                 </div>
                 {error && <div className="error">{error}</div>}
                 <button type="submit" disabled={loading}>
-                    {loading ? "Loading..." : "Register"}
+                    {loading ? "Loading..." : "Login"}
                 </button>
-                <button onClick={() => navigate("/")}>Login Page
+                <button onClick={() => navigate("/login")}>Register Page
                 </button>
             </form>
         </div>
