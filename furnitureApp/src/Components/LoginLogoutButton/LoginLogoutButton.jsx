@@ -10,7 +10,7 @@ const LoginLogoutButton = () => {
         if (isAuthenticated) {
             logout(); // Wylogowanie użytkownika
         } else {
-            navigate("/login"); // Przekierowanie do strony logowania
+            navigate("/register"); // Przekierowanie do strony logowania
         }
     };
 
