@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "./Register.scss";
 
 function Register() {
@@ -8,6 +9,7 @@ function Register() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const validateForm = () => {
@@ -25,22 +27,24 @@ function Register() {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:8000/registration", {
+            const response = await fetch("http://localhost:8000/token", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, password }), 
+                body: JSON.stringify({ username, password }),
 
             });
 
             setLoading(false);
 
             if (response.ok) {
-                setError("Zarejestrowano!")
+                const data = await response.json();
+                login(data.access_token); 
+                navigate("/protected");
             } else {
                 const errorData = await response.json();
-                setError(errorData.detail || "Registration failed");
+                setError(errorData.detail || "Login failed");
             }
         } catch (error) {
             setLoading(false);
@@ -48,9 +52,8 @@ function Register() {
         }
     };
 
-
     return (
-        <div className="register-container">
+        <div className="login-container">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -72,8 +75,6 @@ function Register() {
                 {error && <div className="error">{error}</div>}
                 <button type="submit" disabled={loading}>
                     {loading ? "Loading..." : "Login"}
-                </button>
-                <button onClick={() => navigate("/login")}>Register Page
                 </button>
             </form>
         </div>

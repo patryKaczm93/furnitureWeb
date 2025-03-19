@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from app.services import verify_token, get_hash_password, send_verification_mail
 from app.database import get_db, Session
-from app.services import get_current_user
+from app.services import get_current_user, get_user_by_username
 from app import models, schemas
 from datetime import timedelta
 from app.config import settings
@@ -13,7 +13,7 @@ router = APIRouter(tags=["users"])
 
 @router.post("/registration")
 async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    existing_user = db.query(models.Users).filter(models.Users.username == user.username).first()
+    existing_user = get_user_by_username(db, username = user.username)
     
     if existing_user:
         raise_conflict_exception("Użytkownik o podanej nazwie już istnieje")
@@ -45,7 +45,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(get_db))
 
 
 @router.get("/user/{user_id}", status_code=200)
-async def get_user(user_id: int, db: Session = Depends(get_db), current_user: models.Users = Depends(get_current_user)):
+async def get_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(models.Users).filter(models.Users.id == user_id).first()
     if db_user is None:
         raise_not_found_exception("Użytkownik nie istnieje")

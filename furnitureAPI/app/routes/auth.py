@@ -10,7 +10,7 @@ from datetime import timedelta
 router = APIRouter(tags=["auth"])
 
 @router.post("/token")
-def login_for_access_token(user: schemas.UserCreate, db=Depends(get_db)):
+def login_for_access_token(user: schemas.Token, db=Depends(get_db)):
     """ Endpoint logowania """
     user_db = db.query(models.Users).filter(models.Users.username == user.username).first()
     if user_db is None:

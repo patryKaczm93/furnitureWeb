@@ -15,6 +15,9 @@ from .config import settings
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
+def get_user_by_username(db: Session, username: str):
+    return db.query(models.Users).filter(models.Users == username).first()
+
 def get_hash_password(password: str) -> str:
     return pwd_context.hash(password)
 

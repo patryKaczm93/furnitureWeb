@@ -1,33 +1,51 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function ProtectedPage() {
     const navigate = useNavigate();
+    const { user, isAuthenticated } = useAuth(); 
 
     useEffect(() => {
         const verifyToken = async () => {
-            const token = localStorage.getItem('token');
-                console.log(token)
+            const token = user?.token;
+            console.log("Token:", token);
+            if (!token) {
+                navigate("/login"); 
+                return;
+            }
+
             try {
-                const response = await fetch(`http://localhost:8000/verified-token/`, {
+                const response = await fetch("http://localhost:8000/verified-token/", {
                     method: "GET",
                     headers: {
-                        Authorization: `Bearer ${token}`, // Dodaj token w nagłówku
+                        Authorization: `Bearer ${token}`, 
                     },
                 });
-                if(!response.ok) {
+
+                if (!response.ok) {
                     throw new Error('Token verification failed');
                 }
             } catch (error) {
-                localStorage.removeItem('token')
-                navigate('/')
+                console.error(error);
+                localStorage.removeItem("token");
+                navigate("/login"); 
             }
         };
 
-        verifyToken();
-    }, [navigate]);
+        if (isAuthenticated) {
+            verifyToken();
+        } else {
+            navigate("/login"); 
+        }
+    }, [navigate, isAuthenticated, user?.token]);
 
-    return <div>This is protected page</div>;
+    return (
+        <div>
+            <h2>Protected Page</h2>
+            <p>Welcome, you are logged in and authorized to see this page.</p>
+        </div>
+    );
 }
 
-export default ProtectedPage
+export default ProtectedPage;
