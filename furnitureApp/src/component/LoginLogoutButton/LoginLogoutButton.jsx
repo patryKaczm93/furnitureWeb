@@ -1,23 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const LoginLogoutButton = () => {
-    const { user, logout, isAuthenticated } = useAuth();
+    const { logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault();
         if (isAuthenticated) {
-            logout(); // Wylogowanie użytkownika
+            logout();
         } else {
-            navigate("/register"); // Przekierowanie do strony logowania
+            navigate("/login");
         }
     };
 
     return (
-        <button onClick={handleClick}>
-            {isAuthenticated ? "Logout" : "Login"} {/* Zmieniamy tekst przycisku */}
-        </button>
+        <li>
+            <button onClick={handleClick} className="nav-button">
+                {isAuthenticated ? "Logout" : "Login"}
+            </button>
+        </li>
     );
 };
 

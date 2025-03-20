@@ -76,7 +76,7 @@ function Login() {
                 <button type="submit" disabled={loading}>
                     {loading ? "Loading..." : "Login"}
                 </button>
-                <button type="button" onClick={() => navigate("/login")}>Login Page
+                <button type="button" onClick={() => navigate("/register")}>Register Page
                 </button>
             </form>
         </div>
