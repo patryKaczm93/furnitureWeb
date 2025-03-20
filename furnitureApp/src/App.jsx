@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Home, Login, ProtectedPage, Register } from "./pages";
-import Navbar from "./Components/Navbar/Navbar";
-import { AuthProvider } from "./context/AuthContext";  // Importujemy AuthProvider
+import Navbar from "./component/Navbar/Navbar";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (

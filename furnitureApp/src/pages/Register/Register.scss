@@ -1,7 +1,6 @@
-// Register.scss
+// Login.scss
 $primary-color: #3498db;
 $hover-color: #2980b9;
-$success-color: #4CAF50;
 $error-color: #e74c3c;
 $text-color: #333;
 $bg-color: #ecf0f1;
@@ -10,7 +9,7 @@ $border-color: #bdc3c7;
 $focus-color: #3498db;
 $font-stack: 'Arial', sans-serif;
 
-.register-container {
+.login-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
@@ -58,11 +57,10 @@ $font-stack: 'Arial', sans-serif;
       }
     }
 
-    .error {
+    p {
       color: $error-color;
       text-align: center;
       font-size: 14px;
-      margin-bottom: 10px;
     }
 
     button {
@@ -75,7 +73,7 @@ $font-stack: 'Arial', sans-serif;
       transition: background-color 0.3s ease;
 
       &:first-child {
-        background-color: $success-color;
+        background-color: $primary-color;
         color: $text-color;
       }
 
@@ -88,7 +86,7 @@ $font-stack: 'Arial', sans-serif;
         cursor: not-allowed;
       }
     }
-
+    
     button[type="button"] {
       background-color: #bdc3c7;
       color: #2c3e50;
@@ -102,7 +100,7 @@ $font-stack: 'Arial', sans-serif;
 
 // Responsywność
 @media (max-width: 768px) {
-  .register-container {
+  .login-container {
     padding: 15px;
     margin: 20px;
   }
