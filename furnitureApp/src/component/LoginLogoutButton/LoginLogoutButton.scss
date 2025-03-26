@@ -1,0 +1,114 @@
+$primary-color: #3498db;
+$hover-color: #2980b9;
+$text-color: #fff;
+$bg-color: #2c3e50;
+$font-stack: 'Arial', sans-serif;
+
+.profile-menu {
+    position: relative;
+    display: inline-block;
+
+    .profile-button {
+        background: none;
+        color: $text-color;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-family: $font-stack;
+
+        &:hover {
+            background-color: $hover-color;
+            transform: scale(1.05);
+        }
+    }
+
+    .dropdown-container {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: $bg-color;
+        border: 2px solid $primary-color;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        width: auto;
+        min-width: 220px;
+        max-width: 100%;
+        margin-top: 8px;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        &.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-menu {
+        list-style: none;
+        padding: 5px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box;
+
+        li {
+            width: 100%;
+            margin-bottom: 4px;
+            box-sizing: border-box;
+            padding-right: 10px;
+
+            a, .logout-button {
+                display: block;
+                width: calc(100% - 20px);
+                text-align: left;
+                color: white;
+                text-decoration: none;
+                padding: 10px 14px;
+                font-size: 18px;
+                transition: background 0.3s ease;
+                border-radius: 3px;
+                background: none;
+                cursor: pointer;
+                font-family: $font-stack;
+                box-sizing: border-box;
+
+                &:hover {
+                    background-color: $hover-color;
+                    color: white;
+                    padding-right: 10px;
+                }
+            }
+
+            .logout-button {
+                color: #ff4d4d;
+                font-weight: bold;
+                background: none;
+                text-align: left;
+                padding: 12px 16px;
+                width: calc(100% - 20px);
+                display: block;
+                border: none;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $hover-color;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+body {
+    overflow-x: hidden;
+}

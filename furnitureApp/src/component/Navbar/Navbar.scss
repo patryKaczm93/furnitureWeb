@@ -1,3 +1,5 @@
+@import '../LoginLogoutButton/LoginLogoutButton';
+
 $primary-color: #3498db;
 $hover-color: #2980b9;
 $text-color: #fff;
@@ -16,20 +18,18 @@ $font-stack: 'Arial', sans-serif;
   color: $text-color;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-  // Linki i przycisk mają te same style
   a, .nav-button {
     color: $text-color;
     text-decoration: none;
     font-size: 18px;
     margin-right: 20px;
-    padding: 10px 15px; /* Ujednolicony padding dla a i button */
+    padding: 10px 15px; 
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     display: flex;
-    align-items: center; /* Wyśrodkowanie tekstu */
-    justify-content: center; /* Wyśrodkowanie tekstu */
+    align-items: center; 
+    justify-content: center; 
 
-    // Usuwamy obramowanie w przypadku buttona
     background: none;
     border: none;
     cursor: pointer;
@@ -67,7 +67,7 @@ $font-stack: 'Arial', sans-serif;
       width: 100%;
       text-align: center;
 
-      a, .nav-button {  // Uwzględnij button w wersji mobilnej
+      a, .nav-button {
         display: block;
         padding: 10px;
         width: 100%;
