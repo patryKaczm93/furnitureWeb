@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <AuthProvider>  {/* Owijamy całą aplikację w AuthProvider */}
+    <AuthProvider>
       <div>
         <Navbar />
         <Routes>

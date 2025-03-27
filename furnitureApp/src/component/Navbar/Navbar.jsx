@@ -1,16 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import LoginLogoutButton from "../LoginLogoutButton/LoginLogoutButton";
 import "./Navbar.scss";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const handleMainPageClick = () => {
+        navigate("/");
+    };
+
     return (
         <nav className="navbar">
-            <Link to="/">Main Page</Link>
+            <button onClick={handleMainPageClick}>
+                Main Page
+            </button>
             <ul>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/services">Services</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                <li><ScrollLink to="about" smooth={true} duration={500}>O firmie</ScrollLink></li>
+                <li><ScrollLink to="services" smooth={true} duration={500}>Usługi</ScrollLink></li>
+                <li><ScrollLink to="contact" smooth={true} duration={500}>Kontakt</ScrollLink></li>
                 <LoginLogoutButton />
             </ul>
         </nav>

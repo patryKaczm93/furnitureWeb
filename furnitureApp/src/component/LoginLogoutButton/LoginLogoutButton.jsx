@@ -17,7 +17,7 @@ const LoginLogoutButton = () => {
     };
 
     const handleLogout = (e) => {
-        e.preventDefault(); // ❗ Dodane, aby zapobiec przeładowaniu strony
+        e.preventDefault();
         logout();
         setIsOpen(false);
     };
