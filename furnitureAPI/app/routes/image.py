@@ -26,7 +26,9 @@ def save_file(file: UploadFile):
     return os.path.join(settings.UPLOAD_FOLDER, file_name)
 
 @router.post("/upload_image/")
-async def upload_image(user_id: int, description: str = Form(None), order_status: OrderStatusEnum = Form(OrderStatusEnum.NEW), file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def upload_image(user_id: int = Form(...), description: str = Form(None), order_status: OrderStatusEnum = Form(OrderStatusEnum.NEW), file: UploadFile = File(...), db: Session = Depends(get_db)):
+    if not file:
+        raise HTTPException(status_code=400, detail="File not uploaded properly")
     user = db.query(Users).filter(Users.id == user_id).first()
 
     if not user:
@@ -74,7 +76,6 @@ def delete_image(image_id: int, db: Session = Depends(get_db)):
     if not image:
         raise HTTPException(status_code=404, detail="Zdjęcie nie znalezione")
 
-    # os.remove(image.image_path)
     db.delete(image)
     db.commit()
 

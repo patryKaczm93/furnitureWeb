@@ -1,0 +1,142 @@
+$primary-color: #3498db;
+$hover-color: #2980b9;
+$success-color: #4CAF50;
+$error-color: #e74c3c;
+$text-color: #333;
+$bg-color: #ecf0f1;
+$input-bg-color: #fff;
+$border-color: #bdc3c7;
+$focus-color: #3498db;
+$font-stack: 'Arial', sans-serif;
+
+.add-project-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: $bg-color;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: $font-stack;
+    box-sizing: border-box;
+  
+    h2 {
+      text-align: center;
+      color: $text-color;
+      margin-bottom: 20px;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+  
+      div {
+        margin-bottom: 15px;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+          color: $text-color;
+        }
+  
+        input, textarea {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid $border-color;
+          border-radius: 5px;
+          font-size: 16px;
+          background-color: $input-bg-color;
+          transition: border-color 0.3s ease;
+          box-sizing: border-box;
+  
+          &:focus {
+            border-color: $focus-color;
+            outline: none;
+          }
+        }
+  
+        textarea {
+          min-height: 150px;
+          resize: vertical;
+        }
+  
+        input[type="file"] {
+          border: 1px solid $border-color;
+          padding: 10px;
+          background-color: $input-bg-color;
+          cursor: pointer;
+  
+          &:focus {
+            border-color: $focus-color;
+            outline: none;
+          }
+        }
+  
+        .file-name {
+          margin-top: 5px;
+          font-size: 14px;
+          color: $text-color;
+        }
+      }
+  
+      .error {
+        color: $error-color;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+  
+      button {
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:first-child {
+          background-color: $success-color;
+          color: $text-color;
+        }
+  
+        &:hover {
+          background-color: $hover-color;
+        }
+  
+        &:disabled {
+          background-color: $border-color;
+          cursor: not-allowed;
+        }
+      }
+    }
+  
+    .project-description-info {
+      font-size: 14px;
+      color: $text-color;
+      margin-bottom: 20px;
+    }
+  
+    .project-measurements-info {
+      font-size: 14px;
+      color: $text-color;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .add-project-container {
+      padding: 15px;
+      margin: 20px;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    button {
+      font-size: 14px;
+    }
+  }
+  

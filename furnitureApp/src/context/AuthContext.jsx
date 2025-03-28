@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
             const response = await axios.get("http://localhost:8000/verified-token", {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setUser({ ...response.data, token });
+            const userData = response.data;
+            setUser({ ...userData, token });
+            localStorage.setItem("userId", userData[0].id);
         } catch (error) {
             console.error("Błąd pobierania danych użytkownika:", error);
             logout();
@@ -34,7 +36,6 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (token) => {
         localStorage.setItem("token", token);
-        localStorage.setItem("username", user[0]?.username);
         await fetchUser(token);
     };
 
