@@ -11,7 +11,7 @@ function ProtectedPage() {
             const token = user?.token;
             console.log("Token:", token);
             if (!token) {
-                navigate("/login"); 
+                navigate("/"); 
                 return;
             }
 

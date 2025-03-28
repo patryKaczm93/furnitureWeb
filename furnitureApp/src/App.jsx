@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, ProtectedPage, Register } from "./pages";
+import { Home, Login, ProtectedPage, Register, AddProject } from "./pages";
 import Navbar from "./component/Navbar/Navbar";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -14,6 +14,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/protected" element={<ProtectedPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/add-project" element={<AddProject />} />
         </Routes>
       </div>
     </AuthProvider>

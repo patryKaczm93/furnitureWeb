@@ -39,20 +39,27 @@ def verify_token(token: str):
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Nieprawidłowe dane logowania")
+
+    print(f"Token received: {token}")  # Sprawdzenie, czy token jest przekazywany
+
     payload = verify_token(token)
-    
+    print(f"Payload: {payload}")  # Sprawdzenie, czy `verify_token()` działa poprawnie
+
     if payload is None:
         raise credentials_exception
-    
+
     username: str = payload.get("sub")
-    
+    print(f"Extracted username: {username}")  # Sprawdzenie, czy nazwa użytkownika jest poprawnie pobrana
+
     if username is None:
         raise credentials_exception
-    
+
     user = db.query(models.Users).filter(models.Users.username == username).first()
+    print(f"User found: {user}")  # Sprawdzenie, czy użytkownik istnieje w bazie
+
     if user is None:
         raise credentials_exception
-    
+
     return user
 
 
