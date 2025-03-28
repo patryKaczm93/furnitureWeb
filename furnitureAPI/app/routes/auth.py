@@ -59,4 +59,4 @@ async def verified_user_token(token: str = Depends(oauth2_scheme), db=Depends(ge
     except Exception as e:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    return user, {'message': "Token is valid"}
+    return {"user": user, "message": "Token is valid"}
