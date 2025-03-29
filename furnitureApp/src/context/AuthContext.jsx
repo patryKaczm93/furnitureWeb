@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);  // Stan ładowania danych użytkownika
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
             });
             const userData = response.data;
             setUser({ ...userData, token });
-            localStorage.setItem("userId", userData[0].id);
+            localStorage.setItem("userId", userData.id);
         } catch (error) {
             console.error("Błąd pobierania danych użytkownika:", error);
             logout();
@@ -35,12 +35,13 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async (token) => {
-        localStorage.setItem("token", token);
         await fetchUser(token);
+        localStorage.setItem("token", token);
     };
 
     const logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         setUser(null);
         setIsLoading(false);
         navigate("/login");

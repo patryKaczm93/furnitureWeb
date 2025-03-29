@@ -25,6 +25,18 @@ def save_file(file: UploadFile):
     
     return os.path.join(settings.UPLOAD_FOLDER, file_name)
 
+def delete_image_file(file_path: str):
+
+    full_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), file_path)
+    if os.path.exists(full_path):
+        try:
+            os.remove(full_path)
+            print(f"File {full_path} deleted successfully")
+        except Exception as e:
+            print(f"Error deleting file {full_path}, {e}")
+    else:
+        print(f"File {full_path} does not exist")
+
 @router.post("/upload_image/")
 async def upload_image(user_id: int = Form(...), description: str = Form(None), order_status: OrderStatusEnum = Form(OrderStatusEnum.NEW), file: UploadFile = File(...), db: Session = Depends(get_db)):
     if not file:
@@ -75,6 +87,8 @@ def delete_image(image_id: int, db: Session = Depends(get_db)):
 
     if not image:
         raise HTTPException(status_code=404, detail="Zdjęcie nie znalezione")
+    
+    delete_image_file(image.image_path)
 
     db.delete(image)
     db.commit()

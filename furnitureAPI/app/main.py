@@ -3,11 +3,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from .models import Base
 from .database import engine, Sessionlocal
-from .routes import auth, users, image, password, create_admin
+from .routes import auth, users, image, password, create_admin, project_status
 
 Base.metadata.create_all(bind=engine)
 
-# Tworzymy instancję FastAPI
 app = FastAPI(
     title="API z autoryzacją OAuth2",
     description="API do testów autoryzacji",
@@ -27,11 +26,11 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 
-# Rejestrujemy router z endpointami dla użytkowników
 app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(image.router)
 app.include_router(password.router)
+app.include_router(project_status.router)
 
 @app.on_event("startup")
 def startup_event():

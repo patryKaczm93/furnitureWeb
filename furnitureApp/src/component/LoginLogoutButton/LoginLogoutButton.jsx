@@ -27,8 +27,8 @@ const LoginLogoutButton = () => {
     useEffect(() => {
         if (!isLoading) {
             if (isAuthenticated && user) {
-                setUsername(user[0]?.username || 'Profil');
-                localStorage.setItem("username", user[0]?.username || 'Profil');
+                setUsername(user?.username);
+                localStorage.setItem("username", user?.username);
             } else {
                 setUsername('Login');
                 localStorage.removeItem("username");  
@@ -58,7 +58,7 @@ const LoginLogoutButton = () => {
             {isAuthenticated && (
                 <div className={`dropdown-container ${isOpen ? "show" : ""}`}>
                     <ul className="dropdown-menu">
-                        {user[0]?.role === "admin" ? (
+                        {user?.role === "admin" ? (
                             <>
                                 <li><a href="/admin-settings">Admin Settings</a></li>
                                 <li><a href="/manage-users">Zarządzanie użytkownikami</a></li>
@@ -66,6 +66,7 @@ const LoginLogoutButton = () => {
                         ) : (
                             <>
                                 <li><a href="/add-project">Dodaj projekt</a></li>
+                                <li><a href="/my-projects">Moje projekty</a></li>
                                 <li><a href="/edit-profile">Edytuj profil</a></li>
                             </>
                         )}
