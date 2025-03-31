@@ -52,3 +52,13 @@ class ImageOut(BaseModel):
     class Config:
         from_attributes=True
         orm_mode = True
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
+    email: Optional[EmailStr] = None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+
+    class Config:
+        from_attributes=True
+        orm_mode = True

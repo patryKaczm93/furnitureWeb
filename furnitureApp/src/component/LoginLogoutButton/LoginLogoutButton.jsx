@@ -36,25 +36,13 @@ const LoginLogoutButton = () => {
         }
     }, [isAuthenticated, user, isLoading]);
 
-    
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-                setIsOpen(false);
-            }
-        };
-
-        document.addEventListener("click", handleClickOutside);
-        return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
-
 
     return (
-        <div className="profile-menu">
+        <div className="profile-menu" tabIndex="0" onBlur={() => setIsOpen(false)} ref={dropdownRef}>
             <button onClick={handleToggle} className="profile-button">
                 {username}
             </button>
-
+    
             {isAuthenticated && (
                 <div className={`dropdown-container ${isOpen ? "show" : ""}`}>
                     <ul className="dropdown-menu">
@@ -62,6 +50,7 @@ const LoginLogoutButton = () => {
                             <>
                                 <li><a href="/admin-settings">Admin Settings</a></li>
                                 <li><a href="/manage-users">Zarządzanie użytkownikami</a></li>
+                                <li><a href="/manage-projects">Zarządzanie projektami</a></li>
                             </>
                         ) : (
                             <>

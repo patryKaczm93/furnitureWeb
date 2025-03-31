@@ -71,3 +71,23 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     return {
         "msg": "User deleted successfully"
         }
+
+@router.get("/all-users")
+async def get_all_users(db: Session = Depends(get_db)):
+    users = db.query(models.Users).all()
+    
+    return users
+
+@router.patch("/user/{user_id}")
+async def update_user(user_id: int, user_data: schemas.UserUpdate, db: Session = Depends(get_db)):
+    user = db.query(models.Users).filter(models.Users.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    for key, value in user_data.dict(exclude_unset=True).items():
+        setattr(user, key, value)
+
+    db.commit()
+    db.refresh(user)
+
+    return user
