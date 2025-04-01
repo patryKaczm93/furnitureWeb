@@ -1,0 +1,22 @@
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.image-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.image-item.selected {
+    border-color: blue; 
+}
+
+.image-item img {
+    width: 150px; 
+    height: auto;
+    object-fit: cover;
+}

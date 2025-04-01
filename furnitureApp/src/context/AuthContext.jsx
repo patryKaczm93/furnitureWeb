@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (token) => {
         await fetchUser(token);
         localStorage.setItem("token", token);
+        navigate("/");
     };
 
     const logout = () => {

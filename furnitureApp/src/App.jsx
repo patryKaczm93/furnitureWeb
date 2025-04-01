@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, ProtectedPage, Register, AddProject, MyProjects, ManageUsers, ManageProjects } from "./pages";
+import { Home, Login, ProtectedPage, Register, AddProject, MyProjects, ManageUsers, ManageProjects, AddDoneImage } from "./pages";
 import Navbar from "./component/Navbar/Navbar";
 import { AuthProvider } from "./context/AuthContext";
 import { ProjectProvider } from "./context/ProjectContext";
@@ -20,6 +20,7 @@ function App() {
             <Route path="/my-projects" element={<MyProjects />} />
             <Route path="/manage-users" element={<ManageUsers />} />
             <Route path="/manage-projects" element={<ManageProjects />} />
+            <Route path="/add-done-image" element={<AddDoneImage />} />
           </Routes>
         </div>
       </ProjectProvider>

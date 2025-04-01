@@ -34,7 +34,7 @@ const EditProject = ({ project }) => {
             <p><strong>Opis:</strong> {project.description}</p>
             <textarea
                 value={description} 
-                onChange={handleDescriptionChange}  // Zmieniamy opis
+                onChange={handleDescriptionChange} 
                 placeholder="Edytuj opis..."
             />
             <p><strong>Status:</strong> {project.order_status}</p>

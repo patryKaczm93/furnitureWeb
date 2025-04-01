@@ -14,7 +14,7 @@ const LoginLogoutButton = () => {
         if (isAuthenticated) {
             setIsOpen((prev) => !prev);
         } else {
-            navigate("/")
+            navigate("/login")
         }
     };
 
@@ -48,7 +48,7 @@ const LoginLogoutButton = () => {
                     <ul className="dropdown-menu">
                         {user?.role === "admin" ? (
                             <>
-                                <li><a href="/admin-settings">Admin Settings</a></li>
+                                <li><a href="/add-done-image">Dodaj zdjęcie realizacji</a></li>
                                 <li><a href="/manage-users">Zarządzanie użytkownikami</a></li>
                                 <li><a href="/manage-projects">Zarządzanie projektami</a></li>
                             </>
