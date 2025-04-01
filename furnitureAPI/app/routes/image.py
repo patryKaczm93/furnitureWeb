@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, Form
+from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, Form, Body
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import UserProjectImages, Users, OrderStatusEnum
@@ -98,9 +98,12 @@ def delete_image(image_id: int, db: Session = Depends(get_db)):
         "image_id": image_id 
     }
 
-@router.put("/update_image/{image_id}")
-def update_image(image_id: int, image_data: ImageCreate = None, order_status: OrderStatusEnum = None, db: Session = Depends(get_db)):
-
+@router.put("/update_image/{image_id}", response_model=ImageOut)
+def update_image(
+    image_id: int, 
+    image_data: ImageCreate = Body(...),
+    db: Session = Depends(get_db)
+):
     image = db.query(UserProjectImages).filter(UserProjectImages.id == image_id).first()
 
     if not image:
@@ -111,11 +114,7 @@ def update_image(image_id: int, image_data: ImageCreate = None, order_status: Or
     if image_data.order_status is not None:
         image.order_status = image_data.order_status
 
-
     db.commit()
     db.refresh(image)
 
-    return {
-        "msg": "Image has been successfully updated",
-        "image": ImageOut.from_orm(image)
-    }
+    return image

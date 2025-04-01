@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {
     const { isAuthenticated } = useAuth();
-    return isAuthenticated ? children : <Navigate to="/login" />;
+    return isAuthenticated ? children : <Navigate to="/" />;
 };
 
 ProtectedRoute.propTypes = {

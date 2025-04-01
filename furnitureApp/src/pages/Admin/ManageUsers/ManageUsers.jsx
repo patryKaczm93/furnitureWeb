@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EditUser from "@components/EditUser/EditUser";
-import UserList from "@components/UserList/UserList";
+import EditUser from "@component/EditUser/EditUser";
+import UserList from "@component/UserList/UserList";
 import "./ManageUsers.scss";  
 
 

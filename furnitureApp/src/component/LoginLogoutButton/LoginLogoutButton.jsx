@@ -14,7 +14,7 @@ const LoginLogoutButton = () => {
         if (isAuthenticated) {
             setIsOpen((prev) => !prev);
         } else {
-            navigate("/login")
+            navigate("/")
         }
     };
 
