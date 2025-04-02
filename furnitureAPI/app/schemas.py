@@ -62,3 +62,11 @@ class UserUpdate(BaseModel):
     class Config:
         from_attributes=True
         orm_mode = True
+
+class ShowPathDoneImage(BaseModel):
+    id: int
+    done_image_path: str
+
+    class Config:
+        from_attributes=True
+        orm_mode = True

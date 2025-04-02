@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     SMTP_USER: str
     SMTP_PASSWORD: str
     UPLOAD_FOLDER: str
+    UPLOAD_DONE_PROJECTS: str
 
     class Config:
         env_file = ".env" 

@@ -7,3 +7,4 @@ export { default as MyProjects } from "./MyProjects/MyProjects";
 export { default as ManageUsers } from "./Admin/ManageUsers/ManageUsers";
 export { default as ManageProjects } from "./Admin/ManageProjects/ManageProjects";
 export { default as AddDoneImage } from "./Admin/AddDoneImage/AddDoneImage";
+export { default as EditProfile } from "./User/EditProfile";

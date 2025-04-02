@@ -1,20 +1,20 @@
 from fastapi import APIRouter, File, UploadFile, Depends, HTTPException, Form, Body
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import UserProjectImages, Users, OrderStatusEnum
+from app.models import UserProjectImages, Users, OrderStatusEnum, UserProjectImagesDone
 from app.config import settings
-from app.schemas import ImageCreate, ImageOut 
+from app.schemas import ImageCreate, ImageOut, ShowPathDoneImage
 import os
 from uuid import uuid4
 
 router = APIRouter(tags=["images"])
 
-def save_file(file: UploadFile):
+def save_file(file: UploadFile, upload_path: str = settings.UPLOAD_FOLDER) -> str:
     extension = file.filename.split('.')[-1]
     file_name = f"{uuid4()}.{extension}"
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    upload_dir = os.path.join(BASE_DIR, settings.UPLOAD_FOLDER)
+    upload_dir = os.path.join(BASE_DIR, upload_path)
 
     os.makedirs(upload_dir, exist_ok=True)
 
@@ -23,7 +23,7 @@ def save_file(file: UploadFile):
     with open(file_path, "wb") as buffer:
         buffer.write(file.file.read())
     
-    return os.path.join(settings.UPLOAD_FOLDER, file_name)
+    return os.path.join(upload_path, file_name)
 
 def delete_image_file(file_path: str):
 
@@ -118,3 +118,47 @@ def update_image(
     db.refresh(image)
 
     return image
+
+@router.post("/upload_done_project/", response_model=ShowPathDoneImage)
+def upload_done_project(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    path = settings.UPLOAD_DONE_PROJECTS
+    done_image_path = save_file(file, path)
+
+    new_done_image = UserProjectImagesDone(done_image_path=done_image_path)
+
+    db.add(new_done_image)
+    db.commit()
+    db.refresh(new_done_image)
+
+    return ShowPathDoneImage(id=new_done_image.id, done_image_path=new_done_image.done_image_path)
+
+@router.delete("/delete_done_image/{image_id}")
+def delete_done_image(image_id: int, db: Session = Depends(get_db)):
+    image = db.query(UserProjectImagesDone).filter(UserProjectImagesDone.id == image_id).first()
+
+    if not image:
+        raise HTTPException(status_code=404, detail="Zdjęcie nie znalezione")
+    
+    delete_image_file(image.done_image_path)
+
+    db.delete(image)
+    db.commit()
+
+    return {
+        "msg": "Photo deleted successfully",
+        "image_id": image_id 
+    }
+
+@router.get("/get_done_image/{image_id}")
+def get_done_image(image_id: int, db: Session = Depends(get_db)):
+    image = db.query(UserProjectImagesDone).filter(UserProjectImagesDone.id == image_id).first()
+
+    if not image:
+        raise HTTPException(status_code=404, detail="Image not found")
+
+    return {"id": image.id, "done_image_path": image.done_image_path}
+
+@router.get("/get_done_images/")
+def get_done_images(db: Session = Depends(get_db)):
+    images = db.query(UserProjectImagesDone).all()
+    return [{"id": image.id, "done_image_path": image.done_image_path} for image in images]

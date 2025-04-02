@@ -1,0 +1,75 @@
+.EditProfile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    
+    .EditProfile-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .EditProfile-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+    input[type="password"] {
+        margin-top: 15px; 
+    }
+
+    .EditProfile-button {
+        margin-top: 15px;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    .DeleteProfile-button {
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background-color: #a71d2a;
+        }
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+    }
+}

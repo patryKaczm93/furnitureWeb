@@ -42,3 +42,9 @@ class UserProjectImages(Base):
     created_at = Column(DateTime, default=datetime.now(timezone.utc)) 
 
     user = relationship("Users", backref="project_images")
+
+class UserProjectImagesDone(Base):
+    __tablename__ = "user_project_images_done"
+
+    id = Column(Integer, primary_key=True)
+    done_image_path = Column(String, nullable=False)
