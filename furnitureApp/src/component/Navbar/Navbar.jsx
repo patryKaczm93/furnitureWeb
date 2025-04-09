@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <button onClick={handleMainPageClick}>
+            <button className="nav-button" onClick={handleMainPageClick}>
                 Main Page
             </button>
             <ul>

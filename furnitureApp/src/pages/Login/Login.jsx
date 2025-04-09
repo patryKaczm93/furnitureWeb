@@ -33,14 +33,13 @@ function Login() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ username, password }),
-
             });
 
             setLoading(false);
 
             if (response.ok) {
                 const data = await response.json();
-                login(data.access_token); 
+                login(data.access_token);
                 navigate("/protected");
             } else {
                 const errorData = await response.json();
@@ -54,29 +53,36 @@ function Login() {
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
+            <h2 className="login-title">Login</h2>
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="form-group">
+                    <label className="form-label">Username:</label>
                     <input
                         type="text"
+                        className="form-input"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
                     />
                 </div>
-                <div>
-                    <label>Password:</label>
+                <div className="form-group">
+                    <label className="form-label">Password:</label>
                     <input
                         type="password"
+                        className="form-input"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                {error && <div className="error">{error}</div>}
-                <button type="submit" disabled={loading}>
+                {error && <div className="error-message">{error}</div>}
+                <button type="submit" className="submit-button" disabled={loading}>
                     {loading ? "Loading..." : "Login"}
                 </button>
-                <button type="button" onClick={() => navigate("/register")}>Register Page
+                <button
+                    type="button"
+                    className="register-button"
+                    onClick={() => navigate("/register")}
+                >
+                    Register Page
                 </button>
             </form>
         </div>

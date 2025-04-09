@@ -1,117 +1,92 @@
-// Register.scss
-$primary-color: #3498db;
-$hover-color: #2980b9;
-$success-color: #4CAF50;
-$error-color: #e74c3c;
-$text-color: #333;
-$bg-color: #ecf0f1;
-$input-bg-color: #fff;
-$border-color: #bdc3c7;
-$focus-color: #3498db;
-$font-stack: 'Arial', sans-serif;
-
-.register-container {
-  max-width: 400px;
-  margin: 50px auto;
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
   padding: 20px;
-  background-color: $bg-color;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: $font-stack;
-  box-sizing: border-box;
+}
 
-  h2 {
-    text-align: center;
-    color: $text-color;
-    margin-bottom: 20px;
-  }
+.login-title {
+  font-size: 2rem;
+  color: #8b5e3c;
+  margin-bottom: 20px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-    div {
-      margin-bottom: 15px;
-      
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: $text-color;
-      }
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
 
-      input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid $border-color;
-        border-radius: 5px;
-        font-size: 16px;
-        background-color: $input-bg-color;
-        transition: border-color 0.3s ease;
-        box-sizing: border-box;
+.form-label {
+  font-size: 1rem;
+  color: #5c4631;
+  margin-bottom: 5px;
+}
 
-        &:focus {
-          border-color: $focus-color;
-          outline: none;
-        }
-      }
-    }
+.form-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #8b5e3c;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
 
-    .error {
-      color: $error-color;
-      text-align: center;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      margin-top: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-
-      &:first-child {
-        background-color: $success-color;
-        color: $text-color;
-      }
-
-      &:hover {
-        background-color: $hover-color;
-      }
-
-      &:disabled {
-        background-color: $border-color;
-        cursor: not-allowed;
-      }
-    }
-
-    button[type="button"] {
-      background-color: #bdc3c7;
-      color: #2c3e50;
-      margin-top: 15px;
-      &:hover {
-        background-color: #95a5a6;
-      }
-    }
+  &:focus {
+      border-color: #a67b5b;
   }
 }
 
-// Responsywność
-@media (max-width: 768px) {
-  .register-container {
-    padding: 15px;
-    margin: 20px;
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.submit-button {
+  padding: 12px 20px;
+  background-color: #8b5e3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+
+  &:hover {
+      background-color: #a67b5b;
+      transform: scale(1.05);
   }
 
-  h2 {
-    font-size: 24px;
+  &:disabled {
+      background-color: #d6c1a1;
+      cursor: not-allowed;
   }
+}
 
-  button {
-    font-size: 14px;
+.register-button {
+  padding: 12px 20px;
+  background-color: transparent;
+  color: #8b5e3c;
+  border: 2px solid #8b5e3c;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+
+  &:hover {
+      background-color: #a67b5b;
+      color: #fff;
+      transform: scale(1.05);
   }
 }

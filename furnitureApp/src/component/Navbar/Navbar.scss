@@ -1,10 +1,10 @@
 @import '../LoginLogoutButton/LoginLogoutButton';
 
-$primary-color: #3498db;
-$hover-color: #2980b9;
-$text-color: #fff;
-$bg-color: #2c3e50;
-$font-stack: 'Arial', sans-serif;
+$primary-color: #8B5E3C; 
+$hover-color: #A67B5B; 
+$text-color: #FAF3E0;
+$bg-color: #5A3E2B; 
+$font-stack: 'Merriweather', serif;
 
 .navbar {
   position: sticky;
@@ -16,28 +16,27 @@ $font-stack: 'Arial', sans-serif;
   padding: 15px 30px;
   font-family: $font-stack;
   color: $text-color;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
   a, .nav-button {
     color: $text-color;
     text-decoration: none;
     font-size: 18px;
     margin-right: 20px;
-    padding: 10px 15px; 
-    border-radius: 5px;
+    padding: 12px 18px;
+    border-radius: 8px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-
+    align-items: center;
+    justify-content: center;
     background: none;
-    border: none;
+    border: 2px solid $primary-color;
     cursor: pointer;
     font-family: inherit;
 
     &:hover {
       background-color: $hover-color;
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
   }
 
@@ -52,7 +51,6 @@ $font-stack: 'Arial', sans-serif;
     }
   }
 
-  // Responsywność
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
@@ -69,7 +67,7 @@ $font-stack: 'Arial', sans-serif;
 
       a, .nav-button {
         display: block;
-        padding: 10px;
+        padding: 12px;
         width: 100%;
       }
     }

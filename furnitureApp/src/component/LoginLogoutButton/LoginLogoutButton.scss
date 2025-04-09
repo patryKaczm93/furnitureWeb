@@ -1,8 +1,8 @@
-$primary-color: #3498db;
-$hover-color: #2980b9;
-$text-color: #fff;
-$bg-color: #2c3e50;
-$font-stack: 'Arial', sans-serif;
+$primary-color: #8B5E3C; 
+$hover-color: #A67B5B; 
+$text-color: #FAF3E0; 
+$bg-color: #5A3E2B; 
+$font-stack: 'Merriweather', serif;
 
 .profile-menu {
     position: relative;
@@ -11,9 +11,9 @@ $font-stack: 'Arial', sans-serif;
     .profile-button {
         background: none;
         color: $text-color;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
+        border: 2px solid $primary-color; 
+        padding: 12px 18px;
+        border-radius: 8px;
         cursor: pointer;
         font-size: 18px;
         transition: background-color 0.3s ease, transform 0.3s ease;
@@ -21,7 +21,7 @@ $font-stack: 'Arial', sans-serif;
 
         &:hover {
             background-color: $hover-color;
-            transform: scale(1.05);
+            transform: scale(1.08); 
         }
     }
 
@@ -31,17 +31,15 @@ $font-stack: 'Arial', sans-serif;
         right: 0;
         background: $bg-color;
         border: 2px solid $primary-color;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
         border-radius: 8px;
         width: auto;
         min-width: 220px;
-        max-width: 100%;
         margin-top: 8px;
         z-index: 100;
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
         box-sizing: border-box;
         overflow: hidden;
 
@@ -49,6 +47,7 @@ $font-stack: 'Arial', sans-serif;
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
     }
 
@@ -71,7 +70,7 @@ $font-stack: 'Arial', sans-serif;
                 display: block;
                 width: calc(100% - 20px);
                 text-align: left;
-                color: white;
+                color: $text-color;
                 text-decoration: none;
                 padding: 10px 14px;
                 font-size: 18px;
@@ -84,13 +83,13 @@ $font-stack: 'Arial', sans-serif;
 
                 &:hover {
                     background-color: $hover-color;
-                    color: white;
+                    color: $text-color; 
                     padding-right: 10px;
                 }
             }
 
             .logout-button {
-                color: #ff4d4d;
+                color: #FAF3E0;
                 font-weight: bold;
                 background: none;
                 text-align: left;
@@ -102,7 +101,7 @@ $font-stack: 'Arial', sans-serif;
 
                 &:hover {
                     background-color: $hover-color;
-                    color: white;
+                    color: $text-color; 
                 }
             }
         }
