@@ -1,5 +1,6 @@
 import React from "react";
 import { Element } from "react-scroll";
+import ImageCarousel from "@component/ImageCarousel/ImageCarousel";
 import "./Home.scss";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             <Element name="about" className="section">
                 <h2>O firmie</h2>
                 <p>Opis firmy...</p>
+                <ImageCarousel />
             </Element>
 
             <Element name="services" className="section">
