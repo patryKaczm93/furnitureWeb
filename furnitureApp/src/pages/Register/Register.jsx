@@ -6,19 +6,19 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const validateForm = () => {
-    if (!username || !password || !email) {
-      setError("Username and password are required");
+    if (!username || !password || !email || !verifyPassword) { 
+      setError("Username, password, and email are required");
       return false;
-    } else if (password !== confirmPassword) {
+    } else if (password !== verifyPassword) {
       setError("Passwords do not match");
       return false;
     }
@@ -32,12 +32,19 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/token", {
+      const response = await fetch("http://localhost:8000/registration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, email, firstName, lastName }),
+        body: JSON.stringify({
+          username,
+          password,
+          email,
+          firstname,
+          lastname,
+          verify_password: verifyPassword, 
+        }),
       });
 
       setLoading(false);
@@ -48,7 +55,11 @@ function Register() {
         navigate("/protected");
       } else {
         const errorData = await response.json();
-        setError(errorData.detail || "Authentication failed");
+        if (errorData.detail) {
+          setError(errorData.detail);
+        } else {
+          setError("Authentication failed");
+        }
       }
     } catch (error) {
       setLoading(false);
@@ -82,8 +93,8 @@ function Register() {
           <label className="form-label">Confirm password:</label>
           <input
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={verifyPassword} 
+            onChange={(e) => setVerifyPassword(e.target.value)}
             className="form-input"
           />
         </div>
@@ -100,7 +111,7 @@ function Register() {
           <label className="form-label">First Name:</label>
           <input
             type="text"
-            value={firstName}
+            value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
             className="form-input"
           />
@@ -109,7 +120,7 @@ function Register() {
           <label className="form-label">Last Name:</label>
           <input
             type="text"
-            value={lastName}
+            value={lastname}
             onChange={(e) => setLastName(e.target.value)}
             className="form-input"
           />

@@ -9,10 +9,10 @@ const Home = () => {
     const controls = useAnimation();
 
     const sectionColors = {
-        home: "#EADDC7",    // Jasny beż
-        about: "#D4B996",   // Ciepły piaskowy
-        services: "#A67B5B", // Jasny brąz
-        contact: "#8B5E3B",  // Ciemny orzech
+        home: "#EADDC7", 
+        about: "#D4B996",   
+        services: "#A67B5B", 
+        contact: "#8B5E3B",  
     };
 
     useEffect(() => {
