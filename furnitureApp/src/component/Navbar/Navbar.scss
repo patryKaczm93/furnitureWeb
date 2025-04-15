@@ -1,9 +1,9 @@
 @import '../LoginLogoutButton/LoginLogoutButton';
 
-$primary-color: #8B5E3C; 
-$hover-color: #A67B5B; 
+$primary-color: #d1af96; 
+$hover-color: #d9b9a0; 
 $text-color: #FAF3E0;
-$bg-color: #5A3E2B; 
+$bg-color: #725846; 
 $font-stack: 'Merriweather', serif;
 
 .navbar {
@@ -17,6 +17,7 @@ $font-stack: 'Merriweather', serif;
   font-family: $font-stack;
   color: $text-color;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 
   a, .nav-button {
     color: $text-color;

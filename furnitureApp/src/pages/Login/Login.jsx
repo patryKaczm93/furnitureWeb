@@ -55,31 +55,31 @@ function Login() {
         <div className="login-container">
             <h2 className="login-title">Login</h2>
             <form onSubmit={handleSubmit} className="login-form">
-                <div className="form-group">
-                    <label className="form-label">Username:</label>
+                <div className="login-form-group">
+                    <label className="login-label">Username:</label>
                     <input
                         type="text"
-                        className="form-input"
+                        className="login-input"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
                     />
                 </div>
-                <div className="form-group">
-                    <label className="form-label">Password:</label>
+                <div className="login-form-group">
+                    <label className="login-label">Password:</label>
                     <input
                         type="password"
-                        className="form-input"
+                        className="login-input"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-                {error && <div className="error-message">{error}</div>}
-                <button type="submit" className="submit-button" disabled={loading}>
+                {error && <div className="login-error">{error}</div>}
+                <button type="submit" className="login-button" disabled={loading}>
                     {loading ? "Loading..." : "Login"}
                 </button>
                 <button
                     type="button"
-                    className="register-button"
+                    className="login-secondary-button"
                     onClick={() => navigate("/register")}
                 >
                     Register Page

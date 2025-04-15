@@ -1,22 +1,22 @@
-.EditProfile-container {
+.login-container {
+  all: initial;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
+  justify-content: center;
 }
 
-.EditProfile-title {
+.login-title {
   font-size: 2rem;
   color: #8b5e3c;
   margin-bottom: 20px;
-  text-align: center;
 }
 
-.EditProfile-form {
+.login-form {
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -24,18 +24,18 @@
   gap: 15px;
 }
 
-.form-group {
+.login-form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-label {
+.login-label {
   font-size: 1rem;
   color: #5c4631;
   margin-bottom: 5px;
 }
 
-.form-input {
+.login-input {
   padding: 10px;
   font-size: 1rem;
   border: 2px solid #8b5e3c;
@@ -48,22 +48,26 @@
   }
 }
 
-.error-message {
+.login-error {
   color: red;
   font-size: 0.9rem;
   margin-top: 10px;
   text-align: center;
 }
 
-.submit-button {
+.login-button,
+.login-secondary-button {
   padding: 12px 20px;
-  background-color: #8b5e3c;
-  color: #fff;
-  border: none;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+  border: none;
+}
+
+.login-button {
+  background-color: #8b5e3c;
+  color: #fff;
 
   &:hover {
     background-color: #a67b5b;
@@ -76,19 +80,14 @@
   }
 }
 
-.delete-button {
-  padding: 12px 20px;
+.login-secondary-button {
   background-color: transparent;
-  color: #e74c3c;
-  border: 2px solid #e74c3c;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
+  border: 2px solid #8b5e3c;
+  color: #8b5e3c;
 
   &:hover {
-    background-color: #e74c3c;
-    color: #fff;
+    background-color: #8b5e3c;
+    color: white;
     transform: scale(1.05);
   }
 }
