@@ -53,32 +53,34 @@ const AddProject = () => {
 
   return (
     <div className="add-project-container">
-      <h2>Add Project</h2>
-      <p className="project-measurements-info">
-        Jedyne co potrzebujemy od Ciebie na początek to zwymiarowanie wnętrza, a to nie jest trudne. Wystarczy do tego zwykła miarka. 
-        Sprawdź na końcu czy wszystko się zgadza!
-        <ul>
-          <li>Zmierz wysokość pomieszczenia (podłoga-sufit).</li>
-          <li>Zmierz odległości między ścianami i od narożników do drzwi.</li>
-          <li>Zmierz wymiary okien i drzwi, uwzględniając odległości od podłogi, sufitu, narożników.</li>
-          <li>Zaznacz kierunek otwierania drzwi i okien.</li>
-          <li>Zmierz elementy wystające (kratki, kaloryfery, rury) oraz zaznacz gniazdka i włączniki.</li>
-        </ul>
-        <p>Dodaj zdjęcie w formacie PDF, JPG, PNG lub innym. Jeśli plik jest w innym formacie, proszę go zmienić.</p>
-      </p>
+      <div className="content-wrapper">
+        <h2>Add Project</h2>
+        <p className="project-measurements-info">
+          Jedyne co potrzebujemy od Ciebie na początek to zwymiarowanie wnętrza, a to nie jest trudne. Wystarczy do tego zwykła miarka. 
+          Sprawdź na końcu czy wszystko się zgadza!
+          <ul>
+            <li>Zmierz wysokość pomieszczenia (podłoga-sufit).</li>
+            <li>Zmierz odległości między ścianami i od narożników do drzwi.</li>
+            <li>Zmierz wymiary okien i drzwi, uwzględniając odległości od podłogi, sufitu, narożników.</li>
+            <li>Zaznacz kierunek otwierania drzwi i okien.</li>
+            <li>Zmierz elementy wystające (kratki, kaloryfery, rury) oraz zaznacz gniazdka i włączniki.</li>
+          </ul>
+          <p>Dodaj zdjęcie w formacie PDF, JPG, PNG lub innym. Jeśli plik jest w innym formacie, proszę go zmienić.</p>
+        </p>
+      </div>
       {error && <div className="error">{error}</div>}
       {successMessage && <div className="success">{successMessage}</div>}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="projectDescription">Project Description</label>
+      <div className="form-group">
+          <label htmlFor="projectDescription" className="form-label">Project Description</label>
           <textarea
             id="projectDescription"
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
           />
-        </div>
+      </div>
         <div>
-          <label htmlFor="projectImage">Add Project Image</label>
+          <label htmlFor="projectImage" className="add-project-text" >Add Project Image</label>
           <input
             type="file"
             id="projectImage"

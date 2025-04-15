@@ -1,100 +1,102 @@
-$primary-color: #3498db;
-$hover-color: #2980b9;
+$primary-color: #8b5e3c;
+$hover-color: #a67b5b;
 $success-color: #4CAF50;
 $error-color: #e74c3c;
-$text-color: #000000;
-$bg-color: #ffffff;
+$text-color: #5c4631;
+$bg-color: #f4f4f4;
 $input-bg-color: #fff;
-$border-color: #bdc3c7;
-$focus-color: #3498db;
+$border-color: #d6c1a1;
+$focus-color: #a67b5b;
 $font-stack: 'Arial', sans-serif;
 
 .my-projects-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: $bg-color;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: $font-stack;
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: $bg-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: $font-stack;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .project-list {
     display: flex;
-    flex-direction: column; 
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
 
-    h2 {
-        text-align: center;
-        color: $text-color;
-        margin-bottom: 20px;
+  .project-item {
+    background-color: $input-bg-color;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: $hover-color;
+      transform: scale(1.03);
+
+      p,
+      .project-status {
+        color: #fff;
+      }
     }
 
-    .project-list {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 2px solid $primary-color;
     }
 
-    .project-item {
-        background-color: #fff;
-        padding: 15px;
-        margin: 0;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        width: calc(33% - 20px);
-        transition: background-color 0.3s ease;
-
-        &:hover {
-            background-color: $hover-color;
-        }
-
-        p {
-            margin: 10px 0;
-            color: $text-color;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        strong {
-            color: $primary-color;
-        }
-
-        .project-status {
-            font-size: 14px;
-            color: $text-color;
-        }
+    p {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: $text-color;
+      text-align: center;
     }
 
-    .error-message {
-        color: $error-color;
-        text-align: center;
-        font-size: 14px;
-        margin-bottom: 10px;
+    .project-status {
+      font-size: 0.9rem;
+      color: $text-color;
     }
+  }
+
+  .error-message {
+    color: $error-color;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 15px;
+  }
 }
 
 @media (max-width: 768px) {
-    .my-projects-container {
-        padding: 15px;
-        margin: 20px;
-    }
+  .my-projects-container {
+    padding: 15px;
+    margin: 20px;
+  }
 
-    h2 {
-        font-size: 24px;
-    }
+  .project-item {
+    width: 100%;
+  }
 
-    .project-item {
-        font-size: 14px;
-        width: calc(50% - 20px);
-    }
-
-    .project-list {
-        flex-direction: column;
-        gap: 10px;
-    }
+  .project-list {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

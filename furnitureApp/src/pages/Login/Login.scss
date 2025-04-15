@@ -1,22 +1,22 @@
-.login-container {
+.EditProfile-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f4f4f4;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
-.login-title {
+.EditProfile-title {
   font-size: 2rem;
   color: #8b5e3c;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.login-form {
+.EditProfile-form {
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -44,13 +44,15 @@
   transition: border-color 0.3s;
 
   &:focus {
-      border-color: #a67b5b;
+    border-color: #a67b5b;
   }
 }
 
 .error-message {
   color: red;
   font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .submit-button {
@@ -64,29 +66,29 @@
   transition: background-color 0.3s, transform 0.3s;
 
   &:hover {
-      background-color: #a67b5b;
-      transform: scale(1.05);
+    background-color: #a67b5b;
+    transform: scale(1.05);
   }
 
   &:disabled {
-      background-color: #d6c1a1;
-      cursor: not-allowed;
+    background-color: #d6c1a1;
+    cursor: not-allowed;
   }
 }
 
-.register-button {
+.delete-button {
   padding: 12px 20px;
   background-color: transparent;
-  color: #8b5e3c;
-  border: 2px solid #8b5e3c;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 
   &:hover {
-      background-color: #a67b5b;
-      color: #fff;
-      transform: scale(1.05);
+    background-color: #e74c3c;
+    color: #fff;
+    transform: scale(1.05);
   }
 }
