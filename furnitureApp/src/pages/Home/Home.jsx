@@ -1,7 +1,8 @@
-import React, { useState } from "react"; 
-import { Element } from "react-scroll"; 
+import React, { useState, useEffect } from "react";
+import { Element } from "react-scroll";
 import { Parallax } from 'react-scroll-parallax';  
 import { motion } from "framer-motion"; 
+import CountUp from 'react-countup';
 import ImageCarousel from "@component/ImageCarousel/ImageCarousel"; 
 import "./Home.scss";
 
@@ -12,6 +13,15 @@ import homeImage from "../../assets/42ae1333-136c-4a9d-ad21-7dce5554a139.png";
 
 const Home = () => {
     const [activeSection, setActiveSection] = useState("home");
+    const [animationTriggered, setAnimationTriggered] = useState(false);
+
+    useEffect(() => {
+        setAnimationTriggered(true);
+    }, []);
+
+    const handleSectionClick = (section) => {
+        setActiveSection(section);
+    };
 
     return (
         <div className="home-container">
@@ -35,23 +45,90 @@ const Home = () => {
                 style={{ backgroundImage: `url(${aboutImage})`, backgroundSize: 'cover' }}
                 onMouseEnter={() => setActiveSection("about")}
             >
-                <div className="section-content">
-                    <h2>O firmie</h2>
-                    <Parallax y={[-20, 20]} tagOuter="figure">
-                        <motion.div
-                            initial={{ x: -200, opacity: 0 }}
-                            whileInView={{ x: 0, opacity: 1 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                        >
-                            <p>
-                                Jesteśmy rodzinną firmą specjalizującą się w tworzeniu mebli na zamówienie...
-                            </p>
-                        </motion.div>
-                    </Parallax>
-                    <ImageCarousel />
-                </div>
+                <motion.div 
+                    className="section-content custom-services"
+                    initial={{ opacity: 0 }}  
+                    animate={{ opacity: animationTriggered ? 1 : 0 }}  
+                    transition={{ duration: 1.5 }}  
+                    onClick={() => handleSectionClick("about")}
+                >
+                    <h3>O firmie</h3>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
+                        transition={{ delay: 0.3, duration: 1 }}
+                        style={{ maxWidth: "900px", marginBottom: "2rem" }}
+                    >
+                        Specjalizujemy się w tworzeniu mebli na wymiar, które łączą funkcjonalność z niepowtarzalnym designem. 
+                        Każdy projekt traktujemy indywidualnie, dbając o każdy detal i potrzeby klienta.
+                    </motion.p>
+
+                    <motion.div
+                        className="carousel-wrapper"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
+                        transition={{ delay: 0.5, duration: 1 }}
+                    >
+                        <ImageCarousel />
+                    </motion.div>
+
+                    <motion.div
+                        className="bottom-section"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: animationTriggered ? 1 : 0 }}
+                        transition={{ delay: 1, duration: 1 }}
+                    >
+                        <img src={aboutImage} alt="Realizacja" className="bottom-image" />
+                        <div className="stats">
+                            <motion.div
+                                className="stat-item"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
+                                transition={{ delay: 1.5, duration: 0.6 }}
+                            >
+                                <h3><CountUp end={200} duration={2} /></h3>
+                                <p>Zadowolonych klientów</p>
+                            </motion.div>
+
+                            <div className="divider" />
+
+                            <motion.div
+                                className="stat-item"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
+                                transition={{ delay: 1.8, duration: 0.6 }}
+                            >
+                                <h3><CountUp end={150} duration={2} /></h3>
+                                <p>Wykonanych projektów</p>
+                            </motion.div>
+
+                            <div className="divider" />
+
+                            <motion.div
+                                className="stat-item"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
+                                transition={{ delay: 2.1, duration: 0.6 }}
+                            >
+                                <h3><CountUp end={30} duration={1} /></h3>
+                                <p>Lat doświadczenia</p>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
+                        transition={{ delay: 2.5, duration: 1 }}
+                        style={{ maxWidth: "800px", marginTop: "2rem" }}
+                    >
+                        Nasza pasja do drewna i precyzji sprawia, że każdy projekt to nie tylko mebel – to dzieło sztuki,
+                        które służy przez lata. Zaufaj naszemu doświadczeniu i dołącz do grona zadowolonych klientów.
+                    </motion.p>
+                </motion.div>
             </Element>
+
 
             <Element
                 name="services"
