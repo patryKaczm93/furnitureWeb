@@ -7,7 +7,6 @@ import './ImageCarousel.scss';
 const ImageCarousel = () => {
   const [images, setImages] = useState([]);
 
-  // Fetch obrazków z API
   useEffect(() => {
     const fetchImages = async () => {
       try {

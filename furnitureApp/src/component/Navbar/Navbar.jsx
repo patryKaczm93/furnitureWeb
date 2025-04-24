@@ -1,14 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import { useNavigate, useLocation } from "react-router-dom";
 import LoginLogoutButton from "../LoginLogoutButton/LoginLogoutButton";
 import "./Navbar.scss";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();  
 
     const handleMainPageClick = () => {
-        navigate("/");
+        if (location.pathname === "/") {
+            window.scrollTo({ top: 0, behavior: "smooth" }); 
+        } else {
+            navigate("/", { replace: true });
+        }
     };
 
     return (

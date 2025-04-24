@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 import CountUp from 'react-countup';
 import ImageCarousel from "@component/ImageCarousel/ImageCarousel"; 
 import "./Home.scss";
+import { Link } from 'react-scroll';
 
 import aboutImage from '../../assets/99b307c2-74fe-442d-a8bb-f1979f8f1f65.png';
 import servicesImage from '../../assets/cd6e90e8-a401-4cf3-b21c-25f4ce9c47c0.png';
 import contactImage from '../../assets/ChatGPT Image 9 kwi 2025, 21_56_26.png';
 import homeImage from "../../assets/42ae1333-136c-4a9d-ad21-7dce5554a139.png";
+import servicesImage2 from "../../assets/c1f1ec52-6122-4947-9c93-12057a7ac924.png";
 
 const Home = () => {
     const [activeSection, setActiveSection] = useState("home");
@@ -32,10 +34,21 @@ const Home = () => {
                 onMouseEnter={() => setActiveSection("home")}
             >
                 <div className="section-content">
-                    <Parallax y={[-30, 30]} tagOuter="figure">
-                        <h2>Strona Główna</h2>
-                        <p>Witamy na naszej stronie!</p>
-                    </Parallax>
+                    <div className="company-title">
+                        <h1>Nasza Firma</h1>
+                    </div>
+
+                    <div className="company-info">
+                        <p>Nasza firma oferuje usługi najwyższej jakości. Działamy na rynku od wielu lat i zrealizowaliśmy setki projektów. Zapraszamy do kontaktu!</p>
+                        <Link 
+                            to="contact" 
+                            smooth={true}  
+                            duration={500}  
+                            className="contact-button"
+                        >
+                            Skontaktuj się z nami
+                        </Link>
+                    </div>
                 </div>
             </Element>
 
@@ -54,23 +67,22 @@ const Home = () => {
                 >
                     <h3>O firmie</h3>
 
-                    <motion.p
+                    <motion.div 
+                        className="about-row"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
                         transition={{ delay: 0.3, duration: 1 }}
-                        style={{ maxWidth: "900px", marginBottom: "2rem" }}
                     >
-                        Specjalizujemy się w tworzeniu mebli na wymiar, które łączą funkcjonalność z niepowtarzalnym designem. 
-                        Każdy projekt traktujemy indywidualnie, dbając o każdy detal i potrzeby klienta.
-                    </motion.p>
+                        <motion.div className="about-text">
+                            <p>
+                                Specjalizujemy się w tworzeniu mebli na wymiar, które łączą funkcjonalność z niepowtarzalnym designem. 
+                                Każdy projekt traktujemy indywidualnie, dbając o każdy detal i potrzeby klienta.
+                            </p>
+                        </motion.div>
 
-                    <motion.div
-                        className="carousel-wrapper"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
-                        transition={{ delay: 0.5, duration: 1 }}
-                    >
-                        <ImageCarousel />
+                        <motion.div className="carousel-wrapper">
+                            <ImageCarousel />
+                        </motion.div>
                     </motion.div>
 
                     <motion.div
@@ -130,26 +142,75 @@ const Home = () => {
             </Element>
 
 
+
             <Element
                 name="services"
                 className="section"
                 style={{ backgroundImage: `url(${servicesImage})`, backgroundSize: 'cover' }}
                 onMouseEnter={() => setActiveSection("services")}
             >
-                <div className="section-content">
-                    <h2>Usługi</h2>
-                    <Parallax y={[-25, 25]} tagOuter="figure">
-                        <motion.p
-                            initial={{ y: 50, opacity: 0 }}
-                            whileInView={{ y: 0, opacity: 1 }}
+                <div className="section-content horizontal-layout">
+                    <div className="service-left">
+                        <div className="image-frame">
+                            <img src={servicesImage2} alt="Usługi" />
+                        </div>
+                    </div>
+
+                    <div className="service-right">
+                        <motion.h2
+                            initial={{ y: -30, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
                         >
-                            Oferujemy kompleksową obsługę: od pomiaru i projektu 3D...
-                        </motion.p>
-                    </Parallax>
+                            Nasze Usługi
+                        </motion.h2>
+
+                        <Parallax y={[-25, 25]}>
+                            <motion.p
+                                initial={{ y: 50, opacity: 0 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                transition={{ duration: 0.8, delay: 0.6 }}
+                                viewport={{ once: true }}
+                            >
+                                Oferujemy kompleksową obsługę: od pomiaru i projektu 3D, przez realizację mebli, aż po ich montaż.
+                            </motion.p>
+                        </Parallax>
+
+                        <div className="services-list">
+                            <motion.ul
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1, delay: 1.2 }}
+                            >
+                                <motion.li
+                                    initial={{ x: -100, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 1.4 }}
+                                >
+                                    - Projektowanie wnętrz
+                                </motion.li>
+                                <motion.li
+                                    initial={{ x: -100, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 1.7 }}
+                                >
+                                    - Realizacja mebli na wymiar
+                                </motion.li>
+                                <motion.li
+                                    initial={{ x: -100, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 2.0 }}
+                                >
+                                    - Montaż i instalacja
+                                </motion.li>
+                            </motion.ul>
+                        </div>
+                    </div>
                 </div>
             </Element>
+
+
+
 
             <Element
                 name="contact"
@@ -158,7 +219,7 @@ const Home = () => {
                 onMouseEnter={() => setActiveSection("contact")}
             >
                 <motion.div
-                    className="contact-form-wrapper"
+                    className="section-content" 
                     initial={{ y: 100, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8 }}
