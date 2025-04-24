@@ -73,12 +73,6 @@ const Home = () => {
                         animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
                         transition={{ delay: 0.3, duration: 1 }}
                     >
-                        <motion.div className="about-text">
-                            <p>
-                                Specjalizujemy się w tworzeniu mebli na wymiar, które łączą funkcjonalność z niepowtarzalnym designem. 
-                                Każdy projekt traktujemy indywidualnie, dbając o każdy detal i potrzeby klienta.
-                            </p>
-                        </motion.div>
 
                         <motion.div className="carousel-wrapper">
                             <ImageCarousel />
@@ -128,16 +122,6 @@ const Home = () => {
                             </motion.div>
                         </div>
                     </motion.div>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
-                        transition={{ delay: 2.5, duration: 1 }}
-                        style={{ maxWidth: "800px", marginTop: "2rem" }}
-                    >
-                        Nasza pasja do drewna i precyzji sprawia, że każdy projekt to nie tylko mebel – to dzieło sztuki,
-                        które służy przez lata. Zaufaj naszemu doświadczeniu i dołącz do grona zadowolonych klientów.
-                    </motion.p>
                 </motion.div>
             </Element>
 
