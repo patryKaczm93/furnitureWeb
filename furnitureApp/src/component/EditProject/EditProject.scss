@@ -1,0 +1,120 @@
+$primary-color: #8b5e3c;
+$hover-color: #a67b5b;
+$success-color: #4CAF50;
+$error-color: #e74c3c;
+$text-color: #5c4631;
+$bg-color: #f4f4f4;
+$input-bg-color: #fff;
+$border-color: #d6c1a1;
+$focus-color: #a67b5b;
+$font-stack: 'Arial', sans-serif;
+$user-card-bg: #fff;
+$user-card-hover: #a67b5b;
+$user-text: #5c4631;
+
+
+.editProject {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: $bg-color;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: $font-stack;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    h2 {
+      font-size: 2rem;
+      color: $primary-color;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: $text-color;
+      strong {
+        font-weight: bold;
+        color: $primary-color;
+      }
+    }
+  
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      background-color: $input-bg-color;
+      color: $text-color;
+      resize: vertical;
+      transition: border 0.3s ease;
+  
+      &:focus {
+        border-color: $focus-color;
+        outline: none;
+      }
+    }
+  
+    label {
+      font-size: 1rem;
+      color: $text-color;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  
+      select {
+        padding: 8px;
+        font-size: 1rem;
+        border-radius: 6px;
+        border: 1px solid $border-color;
+        background-color: $input-bg-color;
+        color: $text-color;
+        transition: border 0.3s ease;
+  
+        &:focus {
+          border-color: $focus-color;
+          outline: none;
+        }
+      }
+    }
+  
+    button {
+      align-self: flex-start;
+      padding: 10px 20px;
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  
+    .success-message {
+      color: $success-color;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  }
+  
+  // Responsywność
+  @media (max-width: 768px) {
+    .editProject {
+      padding: 15px;
+      margin: 20px;
+    }
+  
+    button {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  

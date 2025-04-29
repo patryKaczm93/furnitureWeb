@@ -1,42 +1,108 @@
+$primary-color: #8b5e3c;
+$hover-color: #a67b5b;
+$success-color: #4CAF50;
+$error-color: #e74c3c;
+$text-color: #5c4631;
+$bg-color: #f4f4f4;
+$input-bg-color: #fff;
+$border-color: #d6c1a1;
+$focus-color: #a67b5b;
+$font-stack: 'Arial', sans-serif;
+$user-card-bg: #fff;
+$user-card-hover: #a67b5b;
+$user-text: #5c4631;
+
 .userList {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 0 auto;
-}
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: $bg-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(51, 39, 39, 0.1);
+  font-family: $font-stack;
+  display: flex;
+  flex-direction: column;
 
-.userList h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-}
+  h2 {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-.userList ul {
-    list-style-type: none;
+  ul {
+    list-style: none;
     padding: 0;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 
-.userList li {
+  li {
+    background-color: $user-card-bg;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #000;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      background-color: $user-card-hover;
+      transform: scale(1.02);
+
+      span,
+      p {
+        color: $focus-color;
+      }
+
+      button {
+        background-color: #fff;
+        color: $primary-color;
+
+        &:hover {
+          background-color: $success-color;
+          color: #fff;
+        }
+      }
+    }
+
+    span {
+      color: $user-text;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 8px 12px;
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
 }
 
-.userList button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+@media (max-width: 768px) {
+  .userList {
+    padding: 15px;
+    margin: 20px;
+  }
 
-.userList button:hover {
-    background-color: #0056b3;
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      margin-top: 10px;
+    }
+  }
 }

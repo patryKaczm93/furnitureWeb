@@ -1,61 +1,118 @@
 .projectsList {
-    padding: 20px;
-    background-color: #f9f9f9;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #f4f4f4;
     border-radius: 8px;
-    max-width: 600px;
-    margin: 0 auto;
-
+    box-shadow: 0 4px 10px rgba(51, 39, 39, 0.1);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+  
     h2 {
-        font-size: 1.8rem;
-        color: #333;
-        margin-bottom: 15px;
+      font-size: 2rem;
+      color: #8b5e3c;
+      margin-bottom: 20px;
+      text-align: center;
     }
-
+  
     ul {
-        list-style-type: none;
-        padding: 0;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
-
+  
     li {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        margin-bottom: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        color: #000;
-
-        strong {
-            font-size: 1.2rem;
-            color: #007bff;
-        }
-
+      background-color: #fff;
+      border: 1px solid #d6c1a1;
+      border-radius: 8px;
+      padding: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+  
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  
+      &:hover {
+        background-color: #a67b5b;
+        transform: scale(1.02);
+  
+        strong,
         p {
-            margin: 5px 0;
-            font-size: 0.9rem;
-            color: #555;
+          color: #a67b5b;
         }
-
-        .buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
+  
         button {
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-
+          background-color: #fff;
+          color: #8b5e3c;
+  
+          &:hover {
+            background-color: #4CAF50;
+            color: #fff;
+          }
+        }
+      }
+  
+      strong {
+        color: #5c4631;
+        font-size: 1.1rem;
+      }
+  
+      .project-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+  
+      p {
+        font-size: 1rem;
+        color: #5c4631;
+      }
+  
+      button {
+        padding: 8px 14px;
+        background-color: #8b5e3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+  
+        &:last-of-type {
+            background-color: #e74c3c;
+          
             &:hover {
-                background-color: #0056b3;
+              background-color: #c0392b; 
             }
         }
+  
+        &:hover {
+          background-color: #a67b5b;
+        }
+      }
     }
-}
+  }
+  
+  @media (max-width: 768px) {
+    .projectsList {
+      padding: 15px;
+      margin: 20px;
+  
+      ul li {
+        .project-image {
+          max-height: 200px;
+        }
+  
+        button {
+          width: 100%;
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+  
