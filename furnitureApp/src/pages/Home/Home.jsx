@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { Element } from "react-scroll";
 import { Parallax } from 'react-scroll-parallax';  
 import { motion } from "framer-motion"; 
@@ -14,16 +13,6 @@ import homeImage from "../../assets/42ae1333-136c-4a9d-ad21-7dce5554a139.png";
 import servicesImage2 from "../../assets/c1f1ec52-6122-4947-9c93-12057a7ac924.png";
 
 const Home = () => {
-    const [activeSection, setActiveSection] = useState("home");
-    const [animationTriggered, setAnimationTriggered] = useState(false);
-
-    useEffect(() => {
-        setAnimationTriggered(true);
-    }, []);
-
-    const handleSectionClick = (section) => {
-        setActiveSection(section);
-    };
 
     return (
         <div className="home-container">
@@ -31,15 +20,26 @@ const Home = () => {
                 name="home"
                 className="section"
                 style={{ backgroundImage: `url(${homeImage})`, backgroundSize: 'cover' }}
-                onMouseEnter={() => setActiveSection("home")}
             >
-                <div className="section-content">
+                <motion.div
+                    className="section-content"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                    onViewportBoxUpdate={(info, delta) => {
+                        if (info.isInView) {
+                            setActiveSection("home");
+                        }
+                    }}
+                >
                     <div className="company-title">
                         <h1>Nasza Firma</h1>
                     </div>
 
                     <div className="company-info">
-                        <p>Nasza firma oferuje usługi najwyższej jakości. Działamy na rynku od wielu lat i zrealizowaliśmy setki projektów. Zapraszamy do kontaktu!</p>
+                        <p>
+                            Nasza firma oferuje usługi najwyższej jakości. Działamy na rynku od wielu lat i zrealizowaliśmy setki projektów. Zapraszamy do kontaktu!
+                        </p>
                         <Link 
                             to="contact" 
                             smooth={true}  
@@ -49,184 +49,204 @@ const Home = () => {
                             Skontaktuj się z nami
                         </Link>
                     </div>
-                </div>
-            </Element>
-
-            <Element
-                name="about"
-                className="section"
-                style={{ backgroundImage: `url(${aboutImage})`, backgroundSize: 'cover' }}
-                onMouseEnter={() => setActiveSection("about")}
-            >
-                <motion.div 
-                    className="section-content custom-services"
-                    initial={{ opacity: 0 }}  
-                    animate={{ opacity: animationTriggered ? 1 : 0 }}  
-                    transition={{ duration: 1.5 }}  
-                    onClick={() => handleSectionClick("about")}
-                >
-                    <h3>O firmie</h3>
-
-                    <motion.div 
-                        className="about-row"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 20 }}
-                        transition={{ delay: 0.3, duration: 1 }}
-                    >
-
-                        <motion.div className="carousel-wrapper">
-                            <ImageCarousel />
-                        </motion.div>
-                    </motion.div>
-
-                    <motion.div
-                        className="bottom-section"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: animationTriggered ? 1 : 0 }}
-                        transition={{ delay: 1, duration: 1 }}
-                    >
-                        <img src={aboutImage} alt="Realizacja" className="bottom-image" />
-                        <div className="stats">
-                            <motion.div
-                                className="stat-item"
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
-                                transition={{ delay: 1.5, duration: 0.6 }}
-                            >
-                                <h3><CountUp end={200} duration={2} /></h3>
-                                <p>Zadowolonych klientów</p>
-                            </motion.div>
-
-                            <div className="divider" />
-
-                            <motion.div
-                                className="stat-item"
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
-                                transition={{ delay: 1.8, duration: 0.6 }}
-                            >
-                                <h3><CountUp end={150} duration={2} /></h3>
-                                <p>Wykonanych projektów</p>
-                            </motion.div>
-
-                            <div className="divider" />
-
-                            <motion.div
-                                className="stat-item"
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: animationTriggered ? 1 : 0, y: animationTriggered ? 0 : 30 }}
-                                transition={{ delay: 2.1, duration: 0.6 }}
-                            >
-                                <h3><CountUp end={30} duration={1} /></h3>
-                                <p>Lat doświadczenia</p>
-                            </motion.div>
-                        </div>
-                    </motion.div>
                 </motion.div>
             </Element>
 
-
-
             <Element
-                name="services"
-                className="section"
-                style={{ backgroundImage: `url(${servicesImage})`, backgroundSize: 'cover' }}
-                onMouseEnter={() => setActiveSection("services")}
+            name="about"
+            className="section"
+            style={{ backgroundImage: `url(${aboutImage})`, backgroundSize: 'cover' }}
+        >
+            <motion.div
+                className="section-content custom-services"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                onViewportBoxUpdate={(info, delta) => {
+                    if (info.isInView) {
+                        setActiveSection("about");
+                    }
+                }}
             >
-                <div className="section-content horizontal-layout">
-                    <div className="service-left">
-                        <div className="image-frame">
-                            <img src={servicesImage2} alt="Usługi" />
-                        </div>
-                    </div>
+                <h3>O firmie</h3>
 
-                    <div className="service-right">
-                        <motion.h2
-                            initial={{ y: -30, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            Nasze Usługi
-                        </motion.h2>
-
-                        <Parallax y={[-25, 25]}>
-                            <motion.p
-                                initial={{ y: 50, opacity: 0 }}
-                                whileInView={{ y: 0, opacity: 1 }}
-                                transition={{ duration: 0.8, delay: 0.6 }}
-                                viewport={{ once: true }}
-                            >
-                                Oferujemy kompleksową obsługę: od pomiaru i projektu 3D, przez realizację mebli, aż po ich montaż.
-                            </motion.p>
-                        </Parallax>
-
-                        <div className="services-list">
-                            <motion.ul
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 1, delay: 1.2 }}
-                            >
-                                <motion.li
-                                    initial={{ x: -100, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 1.4 }}
-                                >
-                                    - Projektowanie wnętrz
-                                </motion.li>
-                                <motion.li
-                                    initial={{ x: -100, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 1.7 }}
-                                >
-                                    - Realizacja mebli na wymiar
-                                </motion.li>
-                                <motion.li
-                                    initial={{ x: -100, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 2.0 }}
-                                >
-                                    - Montaż i instalacja
-                                </motion.li>
-                            </motion.ul>
-                        </div>
-                    </div>
-                </div>
-            </Element>
-
-
-
-
-            <Element
-                name="contact"
-                className="section"
-                style={{ backgroundImage: `url(${contactImage})`, backgroundSize: 'cover' }}
-                onMouseEnter={() => setActiveSection("contact")}
-            >
                 <motion.div
-                    className="section-content" 
-                    initial={{ y: 100, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
+                    className="about-row"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 1 }}
                     viewport={{ once: true }}
                 >
-                    <form className="contact-form">
-                        <h2>Kontakt</h2>
-                        <label>
-                            Imię:
-                            <input type="text" name="name" placeholder="Twoje imię" />
-                        </label>
-                        <label>
-                            Email:
-                            <input type="email" name="email" placeholder="Twój email" />
-                        </label>
-                        <label>
-                            Wiadomość:
-                            <textarea name="message" placeholder="Napisz wiadomość..." />
-                        </label>
-                        <button type="submit">Wyślij</button>
-                    </form>
+                    <motion.div className="carousel-wrapper">
+                        <ImageCarousel />
+                    </motion.div>
                 </motion.div>
-            </Element>
+
+                <motion.div
+                    className="bottom-section"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    viewport={{ once: true }}
+                >
+                    <img src={aboutImage} alt="Realizacja" className="bottom-image" />
+                    <div className="stats">
+                        <motion.div
+                            className="stat-item"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.5, duration: 0.6 }}
+                            viewport={{ once: true }}
+                        >
+                            <h3><CountUp end={200} duration={2} /></h3>
+                            <p>Zadowolonych klientów</p>
+                        </motion.div>
+
+                        <div className="divider" />
+
+                        <motion.div
+                            className="stat-item"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.8, duration: 0.6 }}
+                            viewport={{ once: true }}
+                        >
+                            <h3><CountUp end={150} duration={2} /></h3>
+                            <p>Wykonanych projektów</p>
+                        </motion.div>
+
+                        <div className="divider" />
+
+                        <motion.div
+                            className="stat-item"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 2.1, duration: 0.6 }}
+                            viewport={{ once: true }}
+                        >
+                            <h3><CountUp end={30} duration={1} /></h3>
+                            <p>Lat doświadczenia</p>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </motion.div>
+        </Element>
+
+
+
+        <Element
+            name="services"
+            className="section"
+            style={{ backgroundImage: `url(${servicesImage})`, backgroundSize: 'cover' }}
+        >
+            <motion.div 
+                className="section-content horizontal-layout"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                onViewportBoxUpdate={(info, delta) => {
+                    if (info.isInView) {
+                        setActiveSection("services");
+                    }
+                }}
+            >
+                <div className="service-left">
+                    <div className="image-frame">
+                        <img src={servicesImage2} alt="Usługi" />
+                    </div>
+                </div>
+
+                <div className="service-right">
+                    <motion.h2
+                        initial={{ y: -30, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        Nasze Usługi
+                    </motion.h2>
+
+                    <Parallax y={[-25, 25]}>
+                        <motion.p
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                            viewport={{ once: true }}
+                        >
+                            Oferujemy kompleksową obsługę: od pomiaru i projektu 3D, przez realizację mebli, aż po ich montaż.
+                        </motion.p>
+                    </Parallax>
+
+                    <div className="services-list">
+                        <motion.ul
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 1.2 }}
+                        >
+                            <motion.li
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 1.4 }}
+                            >
+                                - Projektowanie wnętrz
+                            </motion.li>
+                            <motion.li
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 1.7 }}
+                            >
+                                - Realizacja mebli na wymiar
+                            </motion.li>
+                            <motion.li
+                                initial={{ x: -100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 2.0 }}
+                            >
+                                - Montaż i instalacja
+                            </motion.li>
+                        </motion.ul>
+                    </div>
+                </div>
+            </motion.div>
+        </Element>
+
+
+
+
+        <Element
+            name="contact"
+            className="section"
+            style={{ backgroundImage: `url(${contactImage})`, backgroundSize: 'cover' }}
+        >
+            <motion.div
+                className="section-content" 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: false }}
+                onViewportBoxUpdate={(info, delta) => {
+                    if (info.isInView) {
+                        setActiveSection("contact");
+                    }
+                }}
+            >
+                <form className="contact-form">
+                    <h2>Kontakt</h2>
+                    <label>
+                        Imię:
+                        <input type="text" name="name" placeholder="Twoje imię" />
+                    </label>
+                    <label>
+                        Email:
+                        <input type="email" name="email" placeholder="Twój email" />
+                    </label>
+                    <label>
+                        Wiadomość:
+                        <textarea name="message" placeholder="Napisz wiadomość..." />
+                    </label>
+                    <button type="submit">Wyślij</button>
+                </form>
+            </motion.div>
+        </Element>
 
             <footer className="footer">
                 <div className="footer-content">
