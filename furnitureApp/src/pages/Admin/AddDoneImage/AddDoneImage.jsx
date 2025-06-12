@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './AddDoneImage.scss'; 
 
 const AddDoneImage = () => {
     const [file, setFile] = useState(null);
@@ -74,9 +75,10 @@ const AddDoneImage = () => {
         <div className="add-done-image">
             <h2>Dodaj zdjęcie realizacji</h2>
 
+            <div className="delete-selected-btn-wrapper">
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload</button>
-
+            <button className="form-button" onClick={handleUpload}>Upload</button>
+            </div>
             {message && <p>{message}</p>}
 
             {imagePath && (
@@ -104,7 +106,13 @@ const AddDoneImage = () => {
                 ))}
             </div>
 
-            {selectedImage && <button onClick={handleDelete}>Usuń zaznaczone zdjęcie</button>}
+            {selectedImage && (
+                <div className="delete-selected-btn-wrapper">
+                    <button className="delete-selected-btn" onClick={handleDelete}>
+                    Usuń zaznaczone zdjęcie
+                    </button>
+                </div>
+                )}
         </div>
     );
 };

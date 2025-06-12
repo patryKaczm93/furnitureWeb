@@ -1,16 +1,16 @@
 $primary-color: #8b5e3c;
 $hover-color: #a67b5b;
-$success-color: #4CAF50;
+$success-color: #ffffff;
 $error-color: #e74c3c;
 $text-color: #5c4631;
 $bg-color: #f4f4f4;
 $input-bg-color: #fff;
-$border-color: #d6c1a1;
+$border-color: #8b5e3c; 
 $focus-color: #a67b5b;
 $font-stack: 'Arial', sans-serif;
-$user-card-bg: #fff;
-$user-card-hover: #a67b5b;
-$user-text: #5c4631;
+$user-card-bg: #ffffff;       
+$user-card-hover-border: $hover-color; 
+$user-text: $primary-color;  
 
 .userList {
   max-width: 900px;
@@ -39,53 +39,40 @@ $user-text: #5c4631;
   }
 
   li {
-    background-color: $user-card-bg;
-    border: 1px solid $border-color;
+    background-color: $user-card-bg; 
+    border: 1px solid $border-color;  
     border-radius: 8px;
     padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    color: $user-text; 
 
     &:hover {
-      background-color: $user-card-hover;
       transform: scale(1.02);
-
-      span,
-      p {
-        color: $focus-color;
-      }
-
-      button {
-        background-color: #fff;
-        color: $primary-color;
-
-        &:hover {
-          background-color: $success-color;
-          color: #fff;
-        }
-      }
+      border-color: $user-card-hover-border; 
     }
 
     span {
-      color: $user-text;
       font-size: 1rem;
     }
 
     button {
       margin-left: 10px;
       padding: 8px 12px;
-      background-color: $primary-color;
-      color: #fff;
-      border: none;
+      background-color: $user-card-bg; 
+      color: $primary-color;           
+      border: 1px solid $border-color; 
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.9rem;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
 
       &:hover {
-        background-color: $hover-color;
+        background-color: $hover-color; 
+        color: $success-color;           
+        border-color: $hover-color;     
       }
     }
   }

@@ -1,37 +1,88 @@
-/* EditUser.scss */
+$primary-color: #8b5e3c;
+$hover-color: #a67b5b;
+$success-color: #ffffff;
+$error-color: #e74c3c;
+$text-color: #5c4631;
+$bg-color: #f4f4f4;
+$input-bg-color: #fff;
+$border-color: #8b5e3c;
+$focus-color: #a67b5b;
+$font-stack: 'Arial', sans-serif;
+$form-bg: #ffffff;
+$form-border-color: $border-color;
+$form-border-hover-color: $hover-color;
+$form-text-color: $primary-color;
 
 .editUser {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: $bg-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(51, 39, 39, 0.1);
+  font-family: $font-stack;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  form {
+    background-color: $form-bg;
     padding: 20px;
-    background-color: #f9f9f9;
+    border: 1px solid $form-border-color;
     border-radius: 8px;
-    max-width: 400px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: $form-text-color;
+
+    input {
+      padding: 10px;
+      border: 1px solid $form-border-color;
+      border-radius: 4px;
+      background-color: $input-bg-color;
+      color: $form-text-color;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $focus-color;
+      }
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: $form-bg;
+      color: $primary-color;
+      border: 1px solid $form-border-color;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        background-color: $hover-color;
+        border-color: $hover-color;
+        color: $success-color;
+      }
+    }
+  }
 }
 
-.editUser h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-}
+@media (max-width: 768px) {
+  .editUser {
+    margin: 20px;
+    padding: 15px;
 
-.editUser input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.editUser button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.editUser button:hover {
-    background-color: #0056b3;
+    form {
+      padding: 15px;
+    }
+  }
 }

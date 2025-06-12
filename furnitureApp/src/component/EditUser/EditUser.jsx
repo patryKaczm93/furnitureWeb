@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./EditUser.scss";
 
+
 const EditUser = ({ user, onSave }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: user.username,
         email: user.email,
@@ -29,6 +32,11 @@ const EditUser = ({ user, onSave }) => {
         } catch (error) {
             console.error("Błąd aktualizacji użytkownika:", error);
         }
+
+    };
+
+    const handleBack = () => {
+        navigate("/manage-users");
     };
 
     return (
@@ -50,6 +58,7 @@ const EditUser = ({ user, onSave }) => {
                     placeholder="E-mail"
                 />
                 <button type="submit">Zapisz</button>
+                <button type="button" onClick={handleBack}>Cofnij</button>
             </form>
         </div>
     );

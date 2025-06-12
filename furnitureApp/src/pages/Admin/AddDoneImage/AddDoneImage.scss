@@ -1,22 +1,195 @@
-.image-gallery {
+$primary-color: #8b5e3c;
+$hover-color: #a67b5b;
+$success-color: #ffffff;
+$error-color: #e74c3c;
+$text-color: #5c4631;
+$bg-color: #f4f4f4;
+$input-bg-color: #fff;
+$border-color: #8b5e3c;
+$focus-color: #a67b5b;
+$font-stack: 'Arial', sans-serif;
+$form-bg: #ffffff;
+$form-border-color: $border-color;
+$form-border-hover-color: $hover-color;
+$form-text-color: $primary-color;
+
+.add-done-image {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background-color: $bg-color;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(51, 39, 39, 0.1);
+  font-family: $font-stack;
+  color: $text-color;
+
+  h2, h3 {
+    color: $primary-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .upload-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+
+    input[type="file"] {
+      flex-grow: 1;
+      background-color: $input-bg-color;
+      border: 1px solid $form-border-color;
+      border-radius: 4px;
+      padding: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: $form-text-color;
+
+      &:focus {
+        outline: none;
+        border-color: $focus-color;
+        box-shadow: 0 0 6px $focus-color;
+      }
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: $form-bg;
+      color: $primary-color;
+      border: 1px solid $form-border-color;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        background-color: $hover-color;
+        border-color: $hover-color;
+        color: $success-color;
+      }
+    }
+  }
+
+  .delete-selected-btn-wrapper {
+    text-align: center;  // wyśrodkowanie kontenera przycisku
+    margin-bottom: 20px;
+  }
+
+  .delete-selected-btn {
+    display: inline-block;  // by zadziałało text-align center rodzica
+    padding: 10px 15px;
+    background-color: $form-bg;
+    color: $primary-color;
+    border: 1px solid $form-border-color;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $hover-color;
+      border-color: $hover-color;
+      color: $success-color;
+    }
+  }
+
+  p {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: 500;
+
+    &.error {
+      color: $error-color;
+    }
+  }
+
+  > div {
+    text-align: center;
+    margin-bottom: 30px;
+
+    p {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: $primary-color;
+    }
+
+    img {
+      max-width: 300px;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid $border-color;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+  }
+
+  .image-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
     justify-content: center;
+    margin-bottom: 20px;
+
+    .image-item {
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      img {
+        width: 200px;
+        height: auto;
+        border-radius: 6px;
+        display: block;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
 }
 
-.image-item {
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.3s ease;
+@media (max-width: 768px) {
+  .add-done-image {
+    padding: 20px 15px;
+
+    .upload-row {
+      flex-direction: column;
+
+      input[type="file"], button {
+        width: 100%;
+      }
+    }
+
+    .image-gallery {
+      justify-content: center;
+
+      .image-item {
+        img {
+          width: 150px;
+        }
+      }
+    }
+  }
 }
 
-.image-item.selected {
-    border-color: blue; 
-}
+.form-button {
+  padding: 10px 15px;
+  background-color: $form-bg;
+  color: $primary-color;
+  border: 1px solid $form-border-color;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  align-self: flex-start;
 
-.image-item img {
-    width: 150px; 
-    height: auto;
-    object-fit: cover;
+  &:hover {
+    background-color: $hover-color;
+    border-color: $hover-color;
+    color: $success-color;
+  }
 }
