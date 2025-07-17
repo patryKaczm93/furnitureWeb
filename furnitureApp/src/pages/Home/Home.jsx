@@ -26,12 +26,9 @@ const Home = () => {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
-                    onViewportBoxUpdate={(info, delta) => {
-                        if (info.isInView) {
-                            setActiveSection("home");
-                        }
-                    }}
+                    viewport={{ amount: 0.8, once: false }}
                 >
+
                     <div className="company-title">
                         <h1>Nasza Firma</h1>
                     </div>
@@ -50,7 +47,8 @@ const Home = () => {
                         </Link>
                     </div>
                 </motion.div>
-            </Element>
+                
+            </Element>  
 
             <Element
             name="about"

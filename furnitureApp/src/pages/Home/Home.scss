@@ -61,12 +61,12 @@ $light-bg-color: rgba(255, 255, 255, 0.8);
     width: 80%;
     text-align: center;
     margin: 0 auto;
-    animation: fadeIn 1.5s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     position: relative; 
+    opacity: 1;
 }
 
 .company-title {
