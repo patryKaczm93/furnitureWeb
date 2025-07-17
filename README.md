@@ -42,29 +42,29 @@ uvicorn app.main:app --reload
 #### 📄 Example `.env`:
 
 ```env
-# Dane administratora (używane do tworzenia konta admina)
+# Admin user credentials (used for creating the admin account)
 ADMIN_EMAIL=admin@example.com
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin123
 
-# Ustawienia bezpieczeństwa JWT
-SECRET_KEY=twój-sekretny-klucz
+# JWT security settings
+SECRET_KEY=your-secret-key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
-# Konfiguracja bazy danych
+# Database configuration
 DATABASE_URL=postgresql://admin:admin123@postgres:5432/mydatabase
 
-# URL frontendu (np. adres, pod którym działa React)
+# Frontend URL (e.g., the address where your React app runs)
 FRONTEND_URL=http://localhost:8000
 
-# Ustawienia serwera SMTP do wysyłki maili
+# SMTP settings for email sending
 SMTP_SERVER=localhost
 SMTP_PORT=1025
 SMTP_USER=
 SMTP_PASSWORD=
 
-# Ścieżki do folderów z plikami statycznymi
+# Paths to folders for static file uploads
 UPLOAD_FOLDER=static/images
 UPLOAD_DONE_PROJECTS=static/done_projects
 ```
