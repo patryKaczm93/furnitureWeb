@@ -122,7 +122,10 @@ git push
 
 ## 🧪 TODO / Future Features
 
-*
+ Unit tests for utility functions and data validation
+ Integration tests for API endpoints (including authentication)
+ Functional tests for user flows (registration, login, file upload)
+ Security tests for access control and protected routes
 
 ---
 
