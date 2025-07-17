@@ -2,13 +2,14 @@
 *.pyc
 *.pyo
 *.pyd
-__pycache__/
+furnitureAPI/app/__pycache__/
+furnitureAPI/app/routes/__pycache__/
 furnitureAPI/venv/
 .env
 .env.*
 
 # Static files (uploaded user files, not in repo)
-furnitureAPI/app/static/images/*
+furnitureAPI/app/static/
 
 # === Node.js / React ===
 node_modules/
